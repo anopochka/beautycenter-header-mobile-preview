@@ -296,21 +296,7 @@ body[data-a=plate] .screen[data-scrolled=true][data-open=true] .misl { left:16px
 </style><style>
 .tablet-col{width:780px;max-width:100%}.tablet-col iframe{width:768px;height:1024px;border:0;background:#fff;display:block}.tablet-device{border:6px solid #111;border-radius:18px;overflow:hidden;max-width:100%}
 @media(max-width:900px){.tablet-col{display:none!important}}
-body.tablet-layout .mh,body.tablet-layout .mplate,body.tablet-layout[data-a=plate] .misl{left:24px;right:24px;top:20px;height:63px;border-radius:12px;padding:12px 14px}
 body.tablet-layout .sc{padding:107px 24px 0}body.tablet-layout .demo-tail{height:1000px}
-body.tablet-layout .mh .logo{width:151px;height:34px}
-body.tablet-layout .mh .mobile-logo{width:151px;height:34px}
-body.tablet-layout .mh .right{gap:16px}
-body.tablet-layout .mh .book{font-size:15px;letter-spacing:-.45px;padding:12px 16px}
-body.tablet-layout .mh .wa{border-radius:100px;width:188px;height:38px;margin-left:5px;gap:4px;padding:9px 12px}
-body.tablet-layout .mh .wa::after{content:"Kontaktieren Sie uns";font-size:15px;font-weight:500;letter-spacing:-.45px;white-space:nowrap}
-body.tablet-layout .mh .burger{width:36px;height:36px}
-body.tablet-layout .mh .burger img{inset:6px}
-body.tablet-layout[data-a=plate] .screen:not([data-scrolled=true]) .misl{opacity:0;pointer-events:none}
-body.tablet-layout[data-a=plate] .mh .logo,body.tablet-layout[data-a=plate] .mh .book,body.tablet-layout[data-a=plate] .mh .burger{visibility:visible}
-body.tablet-layout[data-a=plate] .screen[data-scrolled=true] .mplate,body.tablet-layout[data-a=plate] .screen[data-scrolled=true] .misl{left:calc(50% - 150px);right:calc(50% - 150px);top:16px;height:54px;border-radius:100px;padding:0 14px}
-body.tablet-layout[data-a=plate] .screen[data-open=true] .mplate,body.tablet-layout[data-a=plate] .screen[data-open=true] .misl{left:24px;right:24px;top:20px;height:63px;border-radius:12px}
-body.tablet-layout[data-a=plate] .screen[data-open=true] .misl{opacity:0;pointer-events:none}
 body.tablet-layout .screen .menu,body.tablet-layout .screen[data-scrolled=true] .menu{left:24px;right:24px;top:88px;max-height:calc(100% - 108px)}
 body.tablet-layout .pnl.root{height:369px;gap:5px}
 body.tablet-layout .pnl.root .nl{height:56px;padding:16px;border-radius:8px;font-size:14px;line-height:1.35;letter-spacing:-.42px}
@@ -331,19 +317,6 @@ body.tablet-layout .hero-mobile .glass-pro{left:16px;top:98px;width:131px;height
 body.tablet-layout .hero-mobile .glass-team{left:210px;top:159px;width:131px;height:74px}
 body.tablet-layout .hero-mobile .glass-flower{left:90px;top:279px}
 body.tablet-layout .hero-mobile .clean-badge{left:18px;top:18px;font-size:13px}
-</style><style>
-/* Tablet follows the mobile header states: full, compact, expanded menu. */
-body.tablet-layout[data-a=plate] .misl .wsp{display:none}
-body.tablet-layout[data-a=plate] .screen[data-scrolled=true]:not([data-open=true]) .mplate,
-body.tablet-layout[data-a=plate] .screen[data-scrolled=true]:not([data-open=true]) .misl{left:calc(50% - 180px);right:calc(50% - 180px);top:16px;height:54px;border-radius:100px;padding:0 14px}
-body.tablet-layout[data-a=plate] .misl .right{gap:5px}
-body.tablet-layout[data-a=plate] .misl .burger{width:36px;height:36px;margin-left:11px}
-body.tablet-layout .misl .burger img{inset:6px}
-body.tablet-layout .misl .tablet-wa{width:36px;height:36px;border:1px solid rgba(34,32,31,.12);border-radius:100px;display:flex;align-items:center;justify-content:center}
-body.tablet-layout .misl .tablet-wa img{width:20px;height:20px}
-body.tablet-layout[data-a=plate] .screen[data-scrolled=true] .misl .book{font-size:15px;letter-spacing:-.45px;padding:12px 16px}
-body.tablet-layout[data-a=plate] .screen[data-open=true] .mh{opacity:1;pointer-events:auto}
-body.tablet-layout[data-a=plate] .screen[data-open=true] .mplate{left:24px;right:24px;top:20px;height:63px;border-radius:12px;background:var(--sand)}
 </style>
 <style>
 /* Reveal the language switch only after the desktop backing plate expands. */
@@ -356,23 +329,61 @@ body[data-a=plate] .din[data-scrolled=true] .dhdr .dlang{
   transition:opacity .12s ease,visibility 0s linear .12s;
 }
 </style>
-<style>
-/* One persistent tablet header for all three states. */
-body.tablet-layout[data-a=plate] .screen .misl{display:none!important}
-body.tablet-layout[data-a=plate] .screen #mh{
-opacity:1;pointer-events:auto;left:24px;right:24px;top:20px;height:63px;padding:12px 14px;
-transition:left var(--T) var(--E),right var(--T) var(--E),top var(--T) var(--E),height var(--T) var(--E),padding var(--T) var(--E);
+<style id="tablet-header-motion">
+/* The backing plate and persistent content share one geometry and timeline. */
+body.tablet-layout[data-a=plate] #ms .misl{display:none}
+body.tablet-layout[data-a=plate] #ms .mh,
+body.tablet-layout[data-a=plate] #ms .mplate{
+left:24px;right:24px;top:20px;height:63px;padding:12px 14px;border-radius:12px;
+transition:left var(--T) var(--E),right var(--T) var(--E),top var(--T) var(--E),height var(--T) var(--E),padding var(--T) var(--E),border-radius var(--T) var(--E),box-shadow var(--T) var(--E);
 }
-body.tablet-layout[data-a=plate] .screen .mh .wa{overflow:hidden;flex:none;transition:width var(--T) var(--E),padding var(--T) var(--E),gap var(--T) var(--E)}
-body.tablet-layout[data-a=plate] .screen .mh .wa::after{opacity:1;max-width:160px;transition:opacity .2s ease var(--T),max-width var(--T) var(--E)}
-body.tablet-layout[data-a=plate] .screen[data-scrolled=true]:not([data-open=true]) .mh,
-body.tablet-layout[data-a=plate] .screen[data-scrolled=true]:not([data-open=true]) .mplate{
-left:calc(50% - 240px);right:calc(50% - 240px);top:16px;height:54px;padding:8px 14px;border-radius:100px;
+body.tablet-layout[data-a=plate] #ms .mh{
+opacity:1;pointer-events:auto;background:transparent;box-shadow:none;
 }
-body.tablet-layout[data-a=plate] .screen[data-scrolled=true]:not([data-open=true]) .mh .wa{width:38px;padding:9px;gap:0}
-body.tablet-layout[data-a=plate] .screen[data-scrolled=true]:not([data-open=true]) .mh .wa::after{opacity:0;max-width:0;transition:opacity .15s ease,max-width var(--T) var(--E)}
-</style><style>
-body.tablet-layout[data-a=plate] .screen[data-open=true] .menu{
+body.tablet-layout[data-a=plate] #ms .mplate{background:var(--sand)}
+body.tablet-layout[data-a=plate] #ms .mh .logo,
+body.tablet-layout[data-a=plate] #ms .mh .book,
+body.tablet-layout[data-a=plate] #ms .mh .burger{visibility:visible}
+body.tablet-layout[data-a=plate] #ms .mh .logo{
+width:151px;height:34px;overflow:hidden;transition:width var(--T) var(--E);
+}
+body.tablet-layout[data-a=plate] #ms .mh .mobile-logo{
+width:151px;height:34px;clip-path:inset(0 120px 0 0);transform:translateY(-50%);
+}
+body.tablet-layout #ms .tablet-wordmark{
+position:absolute;left:31px;top:0;width:120px;height:34px;overflow:hidden;
+opacity:1;transition:opacity .2s ease var(--T);
+}
+body.tablet-layout #ms .tablet-wordmark img{
+position:absolute;left:-31px;top:0;width:151px;height:34px;max-width:none;
+}
+body:not(.tablet-layout) .tablet-wordmark{display:none}
+body.tablet-layout #ms .mh .right{gap:16px}
+body.tablet-layout #ms .mh .book{font-size:15px;letter-spacing:-.45px;padding:12px 16px}
+body.tablet-layout #ms .mh .wa{
+width:188px;height:38px;margin-left:5px;padding:9px 12px;gap:4px;border-radius:100px;
+justify-content:flex-start;flex:none;overflow:hidden;
+transition:width var(--T) var(--E),padding var(--T) var(--E),gap var(--T) var(--E);
+}
+body.tablet-layout #ms .mh .wa::after{content:none}
+body.tablet-layout #ms .tablet-contact-label{
+font-size:15px;font-weight:500;letter-spacing:-.45px;white-space:nowrap;flex:none;
+opacity:1;transition:opacity .2s ease var(--T);
+}
+body:not(.tablet-layout) .tablet-contact-label{display:none}
+body.tablet-layout #ms .mh .burger{width:36px;height:36px;flex:none}
+body.tablet-layout #ms .mh .burger img{inset:6px}
+body.tablet-layout[data-a=plate] #ms[data-scrolled=true]:not([data-open=true]) .mh,
+body.tablet-layout[data-a=plate] #ms[data-scrolled=true]:not([data-open=true]) .mplate{
+left:calc(50% - 208px);right:calc(50% - 208px);top:16px;height:54px;padding:8px 14px;border-radius:100px;
+}
+body.tablet-layout[data-a=plate] #ms[data-scrolled=true]:not([data-open=true]) .mh .logo{width:31px}
+body.tablet-layout #ms[data-scrolled=true]:not([data-open=true]) .mh .wa{width:38px;padding:9px;gap:0}
+body.tablet-layout #ms[data-scrolled=true]:not([data-open=true]) .tablet-wordmark,
+body.tablet-layout #ms[data-scrolled=true]:not([data-open=true]) .tablet-contact-label{
+opacity:0;transition:opacity .12s ease;
+}
+body.tablet-layout[data-a=plate] #ms[data-open=true] .menu{
 transition:opacity .25s ease var(--T),transform .3s ease var(--T),top var(--T) var(--E);
 }
 </style></head><body data-p="fade" data-c="sand" data-d="fade" data-s="full" data-a="plate">
@@ -433,14 +444,11 @@ function reset(){openMobile(false);closeDD();mLock=0;dLock=0;msc.scrollTo({top:0
 document.getElementById('demo-reset').onclick=reset;document.getElementById('demo-scroll').onclick=()=>{openMobile(false);closeDD();mLock=0;dLock=0;msc.scrollTo({top:180,behavior:reduced?'instant':'smooth'});ds.scrollTo({top:180,behavior:reduced?'instant':'smooth'})};
 openMobile(false);closeDD();
 
+const tabletWordmark=document.createElement('span');tabletWordmark.className='tablet-wordmark';tabletWordmark.setAttribute('aria-hidden','true');
+const tabletWordmarkImage=document.createElement('img');tabletWordmarkImage.src=embeddedImages.a3;tabletWordmarkImage.alt='';tabletWordmark.append(tabletWordmarkImage);document.querySelector('#mh .logo').append(tabletWordmark);
+const tabletContactLabel=document.createElement('span');tabletContactLabel.className='tablet-contact-label';tabletContactLabel.textContent='Kontaktieren Sie uns';document.querySelector('#mh .wa').append(tabletContactLabel);
 const tabletOnly=new URLSearchParams(location.search).get('device')==='tablet';
 function tabletLayout(){const tablet=tabletOnly||matchMedia('(min-width:600px) and (max-width:900px)').matches;document.body.classList.toggle('tablet-layout',tablet);document.querySelector('#mh .mobile-logo').src=embeddedImages[tablet?'a3':'a19']}
 addEventListener('resize',tabletLayout);tabletLayout();
-const tabletWA=document.createElement('a');tabletWA.className='tablet-wa';tabletWA.setAttribute('aria-label','WhatsApp');
-const tabletWAIcon=document.createElement('img');tabletWAIcon.src=embeddedImages.a20;tabletWAIcon.alt='';tabletWA.append(tabletWAIcon);
-document.querySelector('#misl .wsp').before(tabletWA);
-function syncTabletHeader(){const tablet=document.body.classList.contains('tablet-layout');tabletWA.hidden=!tablet;tabletWA.style.display=tablet?'flex':'none';const island=ms.dataset.scrolled==='true'&&ms.dataset.open!=='true';document.getElementById('mh').inert=false;document.getElementById('misl').inert=tablet&&!island}
-new MutationObserver(syncTabletHeader).observe(ms,{attributes:true,attributeFilter:['data-scrolled','data-open']});
-new MutationObserver(syncTabletHeader).observe(document.body,{attributes:true,attributeFilter:['class']});syncTabletHeader();
-if(!tabletOnly){const section=document.createElement('section');section.className='col tablet-col';section.innerHTML='<div class="stage-heading"><span>Планшет · 768 px</span></div><div class="tablet-device"><iframe title="BeautyCenter · планшет 768 px" src="?device=tablet&v=tablet-morph-2" loading="lazy"></iframe></div>';document.querySelector('.mobile-col').before(section)}
+if(!tabletOnly){const section=document.createElement('section');section.className='col tablet-col';section.innerHTML='<div class="stage-heading"><span>Планшет · 768 px</span></div><div class="tablet-device"><iframe title="BeautyCenter · планшет 768 px" src="?device=tablet&v=tablet-motion-3" loading="lazy"></iframe></div>';document.querySelector('.mobile-col').before(section)}
 </script></body></html>
