@@ -339,6 +339,7 @@ transition:left var(--T) var(--E),right var(--T) var(--E),top var(--T) var(--E),
 }
 body.tablet-layout[data-a=plate] #ms .mh{
 opacity:1;pointer-events:auto;background:transparent;box-shadow:none;
+overflow:hidden;isolation:isolate;
 }
 body.tablet-layout[data-a=plate] #ms .mplate{background:var(--sand)}
 body.tablet-layout[data-a=plate] #ms .mh .logo,
@@ -348,7 +349,7 @@ body.tablet-layout[data-a=plate] #ms .mh .logo{
 width:151px;height:34px;overflow:hidden;transition:width var(--T) var(--E);
 }
 body.tablet-layout[data-a=plate] #ms .mh .mobile-logo{
-width:151px;height:34px;clip-path:inset(0 120px 0 0);transform:translateY(-50%);
+width:151px;height:34px;top:0;clip-path:inset(0 120px 0 0);transform:none;transition:none;
 }
 body.tablet-layout #ms .tablet-wordmark{
 position:absolute;left:31px;top:0;width:120px;height:34px;overflow:hidden;
@@ -383,8 +384,11 @@ body.tablet-layout #ms[data-scrolled=true]:not([data-open=true]) .tablet-wordmar
 body.tablet-layout #ms[data-scrolled=true]:not([data-open=true]) .tablet-contact-label{
 opacity:0;transition:opacity .12s ease;
 }
+body.tablet-layout[data-a=plate] #ms .menu{
+transform:none;transition:opacity .2s ease;
+}
 body.tablet-layout[data-a=plate] #ms[data-open=true] .menu{
-transition:opacity .24s ease var(--reveal-delay),transform .28s ease var(--reveal-delay),top var(--T) var(--E);
+transition:opacity .24s ease var(--reveal-delay);
 }
 </style><style id="header-smooth-motion">
 /* Fade only secondary content; geometry keeps the shared motion timeline. */
@@ -409,6 +413,14 @@ body[data-a=plate] .din[data-scrolled=true] .desktop-wordmark{opacity:0;transiti
 body[data-a=plate] .dmini .dbook,
 body[data-a=plate] .din[data-scrolled=true] .dmini .dbook{font-size:16px;line-height:16px}
 body[data-a=plate] .din[data-scrolled=true] .dmini .dbook{padding:0 12px}
+</style>
+<style id="header-startup">
+/* The initial layout is static; motion begins with the first user action. */
+html:not([data-motion-ready]) *,
+html:not([data-motion-ready]) *::before,
+html:not([data-motion-ready]) *::after{
+transition:none!important;animation:none!important;scroll-behavior:auto!important;
+}
 </style></head><body data-p="fade" data-c="sand" data-d="fade" data-s="full" data-a="plate">
 <header class="demo-tools" lang="ru"><div><h1>BeautyCenter · анимация хедера</h1><p>Прокрути внутри экрана: после 40 px шапка сворачивается в остров.</p></div><div class="demo-actions"><button id="demo-scroll" type="button">Показать сворачивание</button><button id="demo-reset" type="button">В начало</button></div></header>
 <main class="wrap"><section class="col desktop-col"><div class="stage-heading" lang="ru"><span>Десктоп · 1440 px</span><output id="dstate">Шапка · 0 px</output></div><div class="dsk" id="desktop-frame"><div class="din" id="din" data-scrolled="false"><div class="dscrim"></div><div class="dplate"></div><div class="dmini" id="dmini"><a class="dlogo" aria-label="BeautyCenter Basel"><img data-asset="a0" class="logo-mark" alt="" width="42" height="43"></a><nav class="dlinks"><button class="dl" data-dd="beh">Behandlungen<img data-asset="a1" class="chevron-icon" alt="" ></button><button class="dl" data-dd="ueb">Über uns<img data-asset="a1" class="chevron-icon" alt="" ></button><a class="dl">Gutscheine</a><a class="dl">Kosmetik</a><a class="dl">Kontakt</a></nav><a class="dbook">Termin buchen</a><a class="dwa"><img data-asset="a2" class="wa-icon" alt="" ><span>Kontaktieren Sie uns</span></a></div><div class="dhdr" id="dh">
@@ -500,5 +512,12 @@ const tabletContactLabel=document.createElement('span');tabletContactLabel.class
 const tabletOnly=new URLSearchParams(location.search).get('device')==='tablet';
 function tabletLayout(){const tablet=tabletOnly||matchMedia('(min-width:600px) and (max-width:900px)').matches;document.body.classList.toggle('tablet-layout',tablet);document.querySelector('#mh .mobile-logo').src=embeddedImages[tablet?'a3':'a19']}
 addEventListener('resize',tabletLayout);tabletLayout();
-if(!tabletOnly){const section=document.createElement('section');section.className='col tablet-col';section.innerHTML='<div class="stage-heading"><span>Планшет · 768 px</span></div><div class="tablet-device"><iframe title="BeautyCenter · планшет 768 px" src="?device=tablet&v=header-motion-4" loading="lazy"></iframe></div>';document.querySelector('.mobile-col').before(section)}
+// Loading, font swaps and device setup never trigger an entrance animation.
+function enableHeaderMotion(){
+ document.documentElement.setAttribute('data-motion-ready','');
+ for(const event of ['wheel','touchstart','pointerdown','keydown'])document.removeEventListener(event,enableHeaderMotion,true);
+}
+for(const event of ['wheel','touchstart','pointerdown','keydown'])document.addEventListener(event,enableHeaderMotion,{capture:true,passive:true});
+if(!tabletOnly){const section=document.createElement('section');section.className='col tablet-col';section.innerHTML='<div class="stage-heading"><span>Планшет · 768 px</span></div><div class="tablet-device"><iframe title="BeautyCenter · планшет 768 px" src="?device=tablet&v=header-motion-5" loading="lazy"></iframe></div>';document.querySelector('.mobile-col').before(section)}
 </script></body></html>
+
