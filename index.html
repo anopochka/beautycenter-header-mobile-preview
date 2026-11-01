@@ -331,6 +331,17 @@ body.tablet-layout .hero-mobile .glass-pro{left:16px;top:98px;width:131px;height
 body.tablet-layout .hero-mobile .glass-team{left:210px;top:159px;width:131px;height:74px}
 body.tablet-layout .hero-mobile .glass-flower{left:90px;top:279px}
 body.tablet-layout .hero-mobile .clean-badge{left:18px;top:18px;font-size:13px}
+</style><style>
+/* Tablet: floating island, expanded header while the menu is open. */
+body.tablet-layout[data-a=plate] .screen[data-scrolled=true]:not([data-open=true]) .mplate,
+body.tablet-layout[data-a=plate] .screen[data-scrolled=true]:not([data-open=true]) .misl{left:24px;right:24px;top:16px;height:54px;border-radius:100px;padding:0 14px}
+body.tablet-layout[data-a=plate] .misl .right{gap:5px}
+body.tablet-layout[data-a=plate] .misl .burger{width:36px;height:36px;margin-left:11px}
+body.tablet-layout .misl .burger img{inset:6px}
+body.tablet-layout .misl .tablet-wa{width:36px;height:36px;border:1px solid rgba(34,32,31,.12);border-radius:100px;display:flex;align-items:center;justify-content:center}
+body.tablet-layout .misl .tablet-wa img{width:20px;height:20px}
+body.tablet-layout[data-a=plate] .screen[data-scrolled=true] .misl .book{font-size:15px;letter-spacing:-.45px;padding:12px 16px}
+body.tablet-layout[data-a=plate] .screen[data-open=true] .mh{opacity:1;pointer-events:auto}
 </style></head><body data-p="fade" data-c="sand" data-d="fade" data-s="full" data-a="plate">
 <header class="demo-tools" lang="ru"><div><h1>BeautyCenter · анимация хедера</h1><p>Прокрути внутри экрана: после 40 px шапка сворачивается в остров.</p></div><div class="demo-actions"><button id="demo-scroll" type="button">Показать сворачивание</button><button id="demo-reset" type="button">В начало</button></div></header>
 <main class="wrap"><section class="col desktop-col"><div class="stage-heading" lang="ru"><span>Десктоп · 1440 px</span><output id="dstate">Шапка · 0 px</output></div><div class="dsk" id="desktop-frame"><div class="din" id="din" data-scrolled="false"><div class="dscrim"></div><div class="dplate"></div><div class="dmini" id="dmini"><a class="dlogo" aria-label="BeautyCenter Basel"><img data-asset="a0" class="logo-mark" alt="" width="42" height="43"></a><nav class="dlinks"><button class="dl" data-dd="beh">Behandlungen<img data-asset="a1" class="chevron-icon" alt="" ></button><button class="dl" data-dd="ueb">Über uns<img data-asset="a1" class="chevron-icon" alt="" ></button><a class="dl">Gutscheine</a><a class="dl">Kosmetik</a><a class="dl">Kontakt</a></nav><a class="dbook">Termin buchen</a><a class="dwa"><img data-asset="a2" class="wa-icon" alt="" ><span>Kontaktieren Sie uns</span></a></div><div class="dhdr" id="dh">
@@ -392,5 +403,11 @@ openMobile(false);closeDD();
 const tabletOnly=new URLSearchParams(location.search).get('device')==='tablet';
 function tabletLayout(){const tablet=tabletOnly||matchMedia('(min-width:600px) and (max-width:900px)').matches;document.body.classList.toggle('tablet-layout',tablet);document.querySelector('#mh .mobile-logo').src=embeddedImages[tablet?'a3':'a19']}
 addEventListener('resize',tabletLayout);tabletLayout();
+const tabletWA=document.createElement('a');tabletWA.className='tablet-wa';tabletWA.setAttribute('aria-label','WhatsApp');
+const tabletWAIcon=document.createElement('img');tabletWAIcon.src=embeddedImages.a20;tabletWAIcon.alt='';tabletWA.append(tabletWAIcon);
+document.querySelector('#misl .wsp').replaceWith(tabletWA);
+function syncTabletHeader(){const tablet=document.body.classList.contains('tablet-layout');tabletWA.hidden=!tablet;tabletWA.style.display=tablet?'flex':'none';const island=ms.dataset.scrolled==='true'&&ms.dataset.open!=='true';document.getElementById('mh').inert=tablet&&island;document.getElementById('misl').inert=tablet&&!island}
+new MutationObserver(syncTabletHeader).observe(ms,{attributes:true,attributeFilter:['data-scrolled','data-open']});
+new MutationObserver(syncTabletHeader).observe(document.body,{attributes:true,attributeFilter:['class']});syncTabletHeader();
 if(!tabletOnly){const section=document.createElement('section');section.className='col tablet-col';section.innerHTML='<div class="stage-heading"><span>Планшет · 768 px</span></div><div class="tablet-device"><iframe title="BeautyCenter · планшет 768 px" src="?device=tablet" loading="lazy"></iframe></div>';document.querySelector('.mobile-col').before(section)}
 </script></body></html>
