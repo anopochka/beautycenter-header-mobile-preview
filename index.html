@@ -157,7 +157,7 @@ body[data-s=full] .din[data-dd=open] .dd.show{box-shadow:0 0 0 1px rgba(34,32,31
 body .din[data-dd=open] .disl{box-shadow:0 0 0 1px rgba(34,32,31,.06)!important}
 
 /* ===== MORPH v2 (as in references): links stay put, edges move in, one 0.7s timeline ===== */
-:root{--E:cubic-bezier(.65,0,.35,1);--T:.7s;--F:.3s}
+:root{--E:cubic-bezier(.4,0,.2,1);--T:.7s;--F:.3s;--reveal-delay:.34s}
 /* mobile */
 /* desktop: links are absolutely positioned, so nothing shifts sideways while the edges move */
 /* ===== EEZY (as in references): links stay put, edges move in, one 0.7s timeline ===== */
@@ -245,7 +245,7 @@ body[data-a=plate] .din[data-scrolled=true] .dmini .dlogo{width:34px}
 body[data-a=plate] .dmini .dbook{margin-left:auto;margin-right:6px;transition:height var(--T) var(--E),padding var(--T) var(--E),font-size var(--T) var(--E),background var(--T) var(--E),color var(--T) var(--E),margin var(--T) var(--E)}
 body[data-a=plate] .din[data-scrolled=true] .dmini .dbook{margin-right:8px}
 body[data-a=plate] .dmini .dwa{width:212px;height:46px;justify-content:flex-start;padding:0 0 0 26px;gap:5px;flex:none;transition:width var(--T) var(--E),height var(--T) var(--E),gap var(--T) var(--E),padding var(--T) var(--E)}
-body[data-a=plate] .dmini .dwa span{white-space:nowrap;transition:opacity .3s ease .5s}
+body[data-a=plate] .dmini .dwa span{white-space:nowrap;transition:opacity .18s ease var(--reveal-delay)}
 body[data-a=plate] .din[data-scrolled=true] .dmini .dwa{width:44px;height:44px;gap:0;padding-left:9px}
 body[data-a=plate] .din[data-scrolled=true] .dmini .dwa span{opacity:0;transition:opacity .15s ease 0s}
 body[data-a=plate] .dhdr .dlinks,body[data-a=plate] .dhdr .dwa{visibility:hidden}
@@ -319,10 +319,10 @@ body.tablet-layout .hero-mobile .glass-flower{left:90px;top:279px}
 body.tablet-layout .hero-mobile .clean-badge{left:18px;top:18px;font-size:13px}
 </style>
 <style>
-/* Reveal the language switch only after the desktop backing plate expands. */
+/* Fixed language controls fade in once the expanding plate covers them. */
 body[data-a=plate] .din .dhdr .dlang{
   opacity:1;visibility:visible;
-  transition:opacity .2s ease var(--T),visibility 0s linear var(--T);
+  transition:opacity .16s ease .44s,visibility 0s linear .44s;
 }
 body[data-a=plate] .din[data-scrolled=true] .dhdr .dlang{
   opacity:0;visibility:hidden;
@@ -352,7 +352,7 @@ width:151px;height:34px;clip-path:inset(0 120px 0 0);transform:translateY(-50%);
 }
 body.tablet-layout #ms .tablet-wordmark{
 position:absolute;left:31px;top:0;width:120px;height:34px;overflow:hidden;
-opacity:1;transition:opacity .2s ease var(--T);
+opacity:1;transition:opacity .18s ease var(--reveal-delay);
 }
 body.tablet-layout #ms .tablet-wordmark img{
 position:absolute;left:-31px;top:0;width:151px;height:34px;max-width:none;
@@ -368,7 +368,7 @@ transition:width var(--T) var(--E),padding var(--T) var(--E),gap var(--T) var(--
 body.tablet-layout #ms .mh .wa::after{content:none}
 body.tablet-layout #ms .tablet-contact-label{
 font-size:15px;font-weight:500;letter-spacing:-.45px;white-space:nowrap;flex:none;
-opacity:1;transition:opacity .2s ease var(--T);
+opacity:1;transition:opacity .18s ease var(--reveal-delay);
 }
 body:not(.tablet-layout) .tablet-contact-label{display:none}
 body.tablet-layout #ms .mh .burger{width:36px;height:36px;flex:none}
@@ -384,8 +384,31 @@ body.tablet-layout #ms[data-scrolled=true]:not([data-open=true]) .tablet-contact
 opacity:0;transition:opacity .12s ease;
 }
 body.tablet-layout[data-a=plate] #ms[data-open=true] .menu{
-transition:opacity .25s ease var(--T),transform .3s ease var(--T),top var(--T) var(--E);
+transition:opacity .24s ease var(--reveal-delay),transform .28s ease var(--reveal-delay),top var(--T) var(--E);
 }
+</style><style id="header-smooth-motion">
+/* Fade only secondary content; geometry keeps the shared motion timeline. */
+body[data-a=plate] .mh,body[data-a=plate] .dhdr{transition:opacity .18s ease var(--reveal-delay)}
+body[data-a=plate] .screen[data-scrolled=true] .mh,
+body[data-a=plate] .din[data-scrolled=true] .dhdr{transition:opacity .12s ease}
+body[data-a=plate] .screen[data-open=true] .mh{transition:opacity .18s ease var(--reveal-delay)}
+body[data-a=plate] .screen[data-open=true] .menu{
+transition:opacity .24s ease var(--reveal-delay),transform .28s ease var(--reveal-delay),top var(--T) var(--E);
+}
+/* Desktop wordmark shares the moving monogram, avoiding two overlapping logos. */
+body[data-a=plate] .dhdr .logo-full{visibility:hidden}
+body[data-a=plate] .dmini .desktop-wordmark{
+position:absolute;left:42px;top:0;width:164px;height:43px;overflow:hidden;
+opacity:1;transition:opacity .18s ease var(--reveal-delay);
+}
+body[data-a=plate] .dmini .desktop-wordmark img{
+position:absolute;left:-42px;top:0;width:206px;height:43px;max-width:none;
+}
+body[data-a=plate] .din[data-scrolled=true] .desktop-wordmark{opacity:0;transition:opacity .12s ease}
+/* Keep CTA text metrics stable while its surrounding pill changes size. */
+body[data-a=plate] .dmini .dbook,
+body[data-a=plate] .din[data-scrolled=true] .dmini .dbook{font-size:16px;line-height:16px}
+body[data-a=plate] .din[data-scrolled=true] .dmini .dbook{padding:0 12px}
 </style></head><body data-p="fade" data-c="sand" data-d="fade" data-s="full" data-a="plate">
 <header class="demo-tools" lang="ru"><div><h1>BeautyCenter · анимация хедера</h1><p>Прокрути внутри экрана: после 40 px шапка сворачивается в остров.</p></div><div class="demo-actions"><button id="demo-scroll" type="button">Показать сворачивание</button><button id="demo-reset" type="button">В начало</button></div></header>
 <main class="wrap"><section class="col desktop-col"><div class="stage-heading" lang="ru"><span>Десктоп · 1440 px</span><output id="dstate">Шапка · 0 px</output></div><div class="dsk" id="desktop-frame"><div class="din" id="din" data-scrolled="false"><div class="dscrim"></div><div class="dplate"></div><div class="dmini" id="dmini"><a class="dlogo" aria-label="BeautyCenter Basel"><img data-asset="a0" class="logo-mark" alt="" width="42" height="43"></a><nav class="dlinks"><button class="dl" data-dd="beh">Behandlungen<img data-asset="a1" class="chevron-icon" alt="" ></button><button class="dl" data-dd="ueb">Über uns<img data-asset="a1" class="chevron-icon" alt="" ></button><a class="dl">Gutscheine</a><a class="dl">Kosmetik</a><a class="dl">Kontakt</a></nav><a class="dbook">Termin buchen</a><a class="dwa"><img data-asset="a2" class="wa-icon" alt="" ><span>Kontaktieren Sie uns</span></a></div><div class="dhdr" id="dh">
@@ -421,10 +444,35 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 const desktopFrame=document.getElementById('desktop-frame'),phoneFrame=document.getElementById('phone-frame');
 function fit(){desktopFrame.style.setProperty('--desktop-scale',desktopFrame.clientWidth/1440);phoneFrame.style.setProperty('--phone-scale',phoneFrame.clientWidth/406)}
 new ResizeObserver(fit).observe(desktopFrame);new ResizeObserver(fit).observe(phoneFrame);fit();
-let mLast=0,mLock=0,dLock=0,closeTimer,current=null;
+let mLast=0,mAnchor=0,mDirection=0,mFrame=0,dFrame=0,closeTimer,current=null;
 const status=(id,el,y)=>{document.getElementById(id).textContent=(el.dataset.scrolled==='true'?'Остров':'Шапка')+' · '+Math.round(y)+' px'};
-msc.addEventListener('scroll',()=>{const y=msc.scrollTop,dy=y-mLast;mLast=y;ms.dataset.mid=String(y>=40);status('mstate',ms,y);if(Date.now()<mLock||ms.dataset.open==='true')return;const on=ms.dataset.scrolled==='true';if(y<40&&on){mLock=Date.now()+700;ms.dataset.scrolled='false'}else if(dy>8&&!on&&y>=40){mLock=Date.now()+700;ms.dataset.scrolled='true'}else if(dy<-8&&on){mLock=Date.now()+700;ms.dataset.scrolled='false'}status('mstate',ms,y)},{passive:true});
-ds.addEventListener('scroll',()=>{const y=ds.scrollTop;status('dstate',din,y);din.dataset.mid=String(y>=40);if(Date.now()<dLock)return;const on=din.dataset.scrolled==='true';if(!on&&y>40){dLock=Date.now()+700;din.dataset.scrolled='true';closeDD()}else if(on&&y<8){dLock=Date.now()+700;din.dataset.scrolled='false';closeDD()}status('dstate',din,y)},{passive:true});
+// Accumulate real directional movement; allow interrupted transitions to reverse smoothly.
+function syncMobileScroll(){
+ mFrame=0;
+ const y=Math.max(0,msc.scrollTop),dy=y-mLast;
+ const direction=Math.sign(dy);
+ if(direction&&direction!==mDirection){mAnchor=mLast;mDirection=direction}
+ mLast=y;ms.dataset.mid=String(y>=40);
+ if(ms.dataset.open!=='true'){
+  const on=ms.dataset.scrolled==='true';
+  let next=on;
+  if(y<8)next=false;
+  else if(direction>0&&y>=40&&y-mAnchor>=16)next=true;
+  else if(direction<0&&mAnchor-y>=16)next=false;
+  if(next!==on){ms.dataset.scrolled=String(next);mAnchor=y}
+ }
+ status('mstate',ms,y);
+}
+function syncDesktopScroll(){
+ dFrame=0;
+ const y=Math.max(0,ds.scrollTop),on=din.dataset.scrolled==='true';
+ din.dataset.mid=String(y>=40);
+ if(!on&&y>40){din.dataset.scrolled='true';closeDD()}
+ else if(on&&y<8){din.dataset.scrolled='false';closeDD()}
+ status('dstate',din,y);
+}
+msc.addEventListener('scroll',()=>{if(!mFrame)mFrame=requestAnimationFrame(syncMobileScroll)},{passive:true});
+ds.addEventListener('scroll',()=>{if(!dFrame)dFrame=requestAnimationFrame(syncDesktopScroll)},{passive:true});
 const openMobile=state=>{ms.dataset.open=String(state);document.querySelectorAll('.mbb').forEach(b=>{b.setAttribute('aria-expanded',String(state));b.setAttribute('aria-label',state?'Menü schließen':'Menü öffnen')});mm.inert=!state;if(!state)setTimeout(()=>{if(ms.dataset.open!=='true')mm.dataset.view='root'},300)};
 document.querySelectorAll('.mbb').forEach(b=>{b.type='button';b.onclick=()=>openMobile(ms.dataset.open!=='true')});document.getElementById('mscrim').onclick=()=>openMobile(false);
 mm.querySelectorAll('[data-go]').forEach(b=>b.onclick=()=>{mm.dataset.view=b.dataset.go;mm.scrollTop=0});mm.querySelectorAll('[data-sv] .tr').forEach(b=>{b.setAttribute('aria-expanded',String(b.parentElement.classList.contains('open')));b.onclick=()=>{const p=b.parentElement,was=p.classList.contains('open');mm.querySelectorAll('[data-sv]').forEach(x=>{x.classList.remove('open');x.querySelector('.tr').setAttribute('aria-expanded','false')});if(!was){p.classList.add('open');b.setAttribute('aria-expanded','true')}}});
@@ -440,15 +488,17 @@ const dotURL=document.querySelector('#sc2 .dot-icon').src;
 document.querySelectorAll('[data-cat]').forEach(t=>{const change=()=>{document.querySelectorAll('[data-cat]').forEach(x=>x.classList.toggle('is-active',x===t));const sc=document.getElementById('sc2');sc.replaceChildren();for(const text of categories[Number(t.dataset.cat)]){const a=document.createElement('a');a.className='sl2';const dot=document.createElement('i'),pic=document.createElement('img');pic.src=dotURL;pic.alt='';pic.className='dot-icon';dot.append(pic);a.append(dot,document.createTextNode(text));sc.append(a)}const all=document.createElement('a');all.className='all';all.textContent='Alle ansehen';sc.append(all)};t.onmouseenter=change;t.onclick=change;t.onfocus=change});
 document.querySelector('[data-cat="0"]').onmouseenter();
 document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeDD();openMobile(false)}});
-function reset(){openMobile(false);closeDD();mLock=0;dLock=0;msc.scrollTo({top:0,behavior:reduced?'instant':'smooth'});ds.scrollTo({top:0,behavior:reduced?'instant':'smooth'})}
-document.getElementById('demo-reset').onclick=reset;document.getElementById('demo-scroll').onclick=()=>{openMobile(false);closeDD();mLock=0;dLock=0;msc.scrollTo({top:180,behavior:reduced?'instant':'smooth'});ds.scrollTo({top:180,behavior:reduced?'instant':'smooth'})};
+function reset(){openMobile(false);closeDD();mLast=msc.scrollTop;mAnchor=mLast;mDirection=0;msc.scrollTo({top:0,behavior:reduced?'instant':'smooth'});ds.scrollTo({top:0,behavior:reduced?'instant':'smooth'})}
+document.getElementById('demo-reset').onclick=reset;document.getElementById('demo-scroll').onclick=()=>{openMobile(false);closeDD();mLast=msc.scrollTop;mAnchor=mLast;mDirection=0;msc.scrollTo({top:180,behavior:reduced?'instant':'smooth'});ds.scrollTo({top:180,behavior:reduced?'instant':'smooth'})};
 openMobile(false);closeDD();
 
+const desktopWordmark=document.createElement('span');desktopWordmark.className='desktop-wordmark';desktopWordmark.setAttribute('aria-hidden','true');
+const desktopWordmarkImage=document.createElement('img');desktopWordmarkImage.src=embeddedImages.a3;desktopWordmarkImage.alt='';desktopWordmark.append(desktopWordmarkImage);document.querySelector('.dmini .dlogo').append(desktopWordmark);
 const tabletWordmark=document.createElement('span');tabletWordmark.className='tablet-wordmark';tabletWordmark.setAttribute('aria-hidden','true');
 const tabletWordmarkImage=document.createElement('img');tabletWordmarkImage.src=embeddedImages.a3;tabletWordmarkImage.alt='';tabletWordmark.append(tabletWordmarkImage);document.querySelector('#mh .logo').append(tabletWordmark);
 const tabletContactLabel=document.createElement('span');tabletContactLabel.className='tablet-contact-label';tabletContactLabel.textContent='Kontaktieren Sie uns';document.querySelector('#mh .wa').append(tabletContactLabel);
 const tabletOnly=new URLSearchParams(location.search).get('device')==='tablet';
 function tabletLayout(){const tablet=tabletOnly||matchMedia('(min-width:600px) and (max-width:900px)').matches;document.body.classList.toggle('tablet-layout',tablet);document.querySelector('#mh .mobile-logo').src=embeddedImages[tablet?'a3':'a19']}
 addEventListener('resize',tabletLayout);tabletLayout();
-if(!tabletOnly){const section=document.createElement('section');section.className='col tablet-col';section.innerHTML='<div class="stage-heading"><span>Планшет · 768 px</span></div><div class="tablet-device"><iframe title="BeautyCenter · планшет 768 px" src="?device=tablet&v=tablet-motion-3" loading="lazy"></iframe></div>';document.querySelector('.mobile-col').before(section)}
+if(!tabletOnly){const section=document.createElement('section');section.className='col tablet-col';section.innerHTML='<div class="stage-heading"><span>Планшет · 768 px</span></div><div class="tablet-device"><iframe title="BeautyCenter · планшет 768 px" src="?device=tablet&v=header-motion-4" loading="lazy"></iframe></div>';document.querySelector('.mobile-col').before(section)}
 </script></body></html>
