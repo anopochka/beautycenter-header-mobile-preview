@@ -333,6 +333,7 @@ body.tablet-layout .hero-mobile .glass-flower{left:90px;top:279px}
 body.tablet-layout .hero-mobile .clean-badge{left:18px;top:18px;font-size:13px}
 </style><style>
 /* Tablet: floating island, expanded header while the menu is open. */
+body.tablet-layout[data-a=plate] .misl .wsp{display:none}
 body.tablet-layout[data-a=plate] .screen[data-scrolled=true]:not([data-open=true]) .mplate,
 body.tablet-layout[data-a=plate] .screen[data-scrolled=true]:not([data-open=true]) .misl{left:24px;right:24px;top:16px;height:54px;border-radius:100px;padding:0 14px}
 body.tablet-layout[data-a=plate] .misl .right{gap:5px}
@@ -405,7 +406,7 @@ function tabletLayout(){const tablet=tabletOnly||matchMedia('(min-width:600px) a
 addEventListener('resize',tabletLayout);tabletLayout();
 const tabletWA=document.createElement('a');tabletWA.className='tablet-wa';tabletWA.setAttribute('aria-label','WhatsApp');
 const tabletWAIcon=document.createElement('img');tabletWAIcon.src=embeddedImages.a20;tabletWAIcon.alt='';tabletWA.append(tabletWAIcon);
-document.querySelector('#misl .wsp').replaceWith(tabletWA);
+document.querySelector('#misl .wsp').before(tabletWA);
 function syncTabletHeader(){const tablet=document.body.classList.contains('tablet-layout');tabletWA.hidden=!tablet;tabletWA.style.display=tablet?'flex':'none';const island=ms.dataset.scrolled==='true'&&ms.dataset.open!=='true';document.getElementById('mh').inert=tablet&&island;document.getElementById('misl').inert=tablet&&!island}
 new MutationObserver(syncTabletHeader).observe(ms,{attributes:true,attributeFilter:['data-scrolled','data-open']});
 new MutationObserver(syncTabletHeader).observe(document.body,{attributes:true,attributeFilter:['class']});syncTabletHeader();
