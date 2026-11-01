@@ -1,0 +1,353 @@
+<!doctype html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>BeautyCenter — анимация хедера</title><style>@font-face {
+  font-family: 'Onest';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(https://beautycenter-header-mobile-preview.niko-malazonia.chatgpt.site/assets/f14f18b0ab23df313d9d.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Onest';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url(https://beautycenter-header-mobile-preview.niko-malazonia.chatgpt.site/assets/261ac0ff3f9e1df86b17.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url(https://beautycenter-header-mobile-preview.niko-malazonia.chatgpt.site/assets/29b74f8f1021cd534d3b.ttf) format('truetype');
+}
+
+
+:root{--ink:#22201f;--mute:rgba(34,32,31,.5);--sand:#f8f3ef;--plate:#f2e7de;--white:#fffefd;--clay:#af8a82;--hl:#ffd289;--isl:#f8f3ef;--cta:#22201f;--ctaf:#fff}
+body[data-c=white]{--isl:#fffefd;--cta:#ffd289;--ctaf:#22201f}
+*{box-sizing:border-box}
+body{margin:0;background:#3a3633;font-family:Onest,Arial,sans-serif;color:var(--ink)}
+.top{display:flex;flex-direction:column;align-items:center;gap:10px;padding:20px 16px 0;color:#fff}
+.sw{display:flex;gap:6px;flex-wrap:wrap;justify-content:center}.sw button{font:inherit;font-size:13px;padding:7px 13px;border-radius:100px;border:1px solid rgba(255,255,255,.35);background:none;color:#fff;cursor:pointer}.sw button.on{background:var(--plate);color:var(--ink);border-color:var(--plate)}
+.note{font-size:13px;color:rgba(255,255,255,.7);max-width:760px;text-align:center;line-height:1.5;margin:0}
+.wrap{display:flex;gap:40px;justify-content:center;flex-wrap:wrap;padding:20px 16px 48px;align-items:flex-start}
+.col{display:flex;flex-direction:column;align-items:center;gap:10px}
+.lbl{color:#fff;font-size:14px;font-weight:500}
+a{color:inherit;text-decoration:none;cursor:pointer}
+button{font:inherit;color:inherit}
+/* blocks (shared) */
+.blk{border-radius:8px;margin-bottom:8px;text-align:center}
+.sand{background:var(--sand)}.white{background:var(--white)}.clay{background:var(--clay);color:#fff}.dark{background:linear-gradient(160deg,#5b4640,#2b211f);color:#fff}
+.h2{display:flex;gap:4px;align-items:center;justify-content:center;font-size:13px;letter-spacing:-.52px}.h2::before{content:"+";font-size:16px}
+.lead{font-family:"Playfair Display",Georgia,serif;font-style:italic;letter-spacing:-.64px;line-height:1.3}
+.lead mark{font-family:Onest;font-style:normal;background:var(--hl);padding:0 4px;border-radius:3px}
+.pill{display:inline-block;background:var(--ink);color:#fff;border-radius:100px;font-weight:500;letter-spacing:-.42px}
+/* ================= MOBILE ================= */
+.screen{position:relative;width:390px;max-width:100%;height:760px;border-radius:36px;border:8px solid #111;overflow:hidden;background:var(--white)}
+.sc{height:100%;overflow-y:auto;overflow-x:hidden;padding:84px 16px 24px;scrollbar-width:none}.sc::-webkit-scrollbar{display:none}
+.screen[data-open=true] .sc{overflow:hidden}
+.m-blk{padding:40px 16px}
+.m-hero{height:380px;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:16px}
+.m-hero h1{margin:0;font-weight:400;font-size:22px;line-height:1.3;letter-spacing:-.88px}.m-hero h1 em{font-family:"Playfair Display",Georgia,serif}.m-hero h1 mark{background:var(--hl);padding:0 4px;border-radius:4px}
+.m-oval{width:200px;height:260px;border-radius:100px;background:linear-gradient(#d9c1b8,#8d6a62);margin:0 auto}
+.m-svc div{padding:16px;text-align:left;font-size:16px;letter-spacing:-.64px;border-bottom:1px dashed var(--ink)}.m-svc{border-top:1px dashed var(--ink);margin-top:20px}
+.m-img{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:16px}.m-img img{width:100%;aspect-ratio:155/200;object-fit:cover;border-radius:6px;display:block}
+.m-team img{width:100%;aspect-ratio:358/409;object-fit:cover;border-radius:8px;margin-top:20px;display:block}
+.m-gc{background:rgba(254,231,231,.15);border-radius:12px;padding:20px;height:170px;margin-top:12px;display:flex;flex-direction:column;justify-content:flex-end;font-size:14px;color:rgba(255,255,255,.8)}
+.m-gc b{font:italic 22px/1.3 "Playfair Display";color:#fff}
+.m-form{height:420px;padding-top:60px}
+/* header mobile */
+.mh{position:absolute;z-index:30;top:16px;left:16px;right:16px;height:56px;border-radius:8px;display:flex;align-items:center;justify-content:space-between;padding:10px 12px;background:var(--sand);border:1px solid transparent;transition:left .4s,right .4s,top .4s,height .4s,border-radius .4s,background .3s,box-shadow .3s,padding .4s}
+.mh .logo{width:31px;height:34px;flex:none;transition:.4s}
+.mh .right{display:flex;align-items:center;gap:12px;transition:gap .4s}
+.mh .pair{display:flex;align-items:center}
+.mh .book{background:var(--ink);color:#fff;font:500 14px/1 Onest;letter-spacing:-.42px;padding:11px 16px;border-radius:100px;white-space:nowrap;transition:.3s}
+.mh .wa{width:38px;height:38px;margin-left:3px;border-radius:50%;border:1.1px solid rgba(34,32,31,.12);display:flex;align-items:center;justify-content:center;overflow:hidden;transition:.4s}
+.burger{width:24px;height:24px;position:relative;border:0;background:none;padding:0;cursor:pointer}
+.burger i{position:absolute;left:2px;right:2px;height:1.6px;background:currentColor;border-radius:2px;transition:.3s}
+.burger i:nth-child(1){top:7px}.burger i:nth-child(2){top:15px}
+.screen[data-open=true] .burger i:nth-child(1){top:11px;transform:rotate(45deg)}.screen[data-open=true] .burger i:nth-child(2){top:11px;transform:rotate(-45deg)}
+.scrim{position:absolute;inset:0;z-index:25;background:rgba(43,43,43,.35);-webkit-backdrop-filter:blur(5px);backdrop-filter:blur(5px);opacity:0;pointer-events:none;transition:opacity .3s}
+.screen[data-open=true] .scrim{opacity:1;pointer-events:auto}
+.menu{position:absolute;z-index:29;left:16px;right:16px;top:76px;max-height:calc(100% - 92px);overflow:auto;scrollbar-width:none;opacity:0;transform:translateY(-6px);pointer-events:none;transition:opacity .25s,transform .3s}
+.menu::-webkit-scrollbar{display:none}
+.screen[data-open=true] .menu{opacity:1;transform:none;pointer-events:auto}
+.pnl{background:var(--sand);border-radius:8px;padding:16px;display:none;flex-direction:column;gap:5px}
+.menu[data-view=root] .pnl.root,.menu[data-view=beh] .pnl.beh,.menu[data-view=ueb] .pnl.ueb{display:flex}
+.nl{display:flex;align-items:center;gap:4px;height:51px;padding:14px 12px;background:var(--plate);border-radius:6px;font-weight:500;font-size:14px;line-height:16.5px;letter-spacing:-.5px;cursor:pointer;border:0;width:100%;text-align:left}
+.nl .ic{width:18px;height:18px;flex:none;display:flex;align-items:center;justify-content:center}
+.nl .ar{margin-left:auto;width:24px;height:24px;display:flex;align-items:center;justify-content:center}
+.sh{display:flex;align-items:center;justify-content:center;position:relative;padding:0 0 16px;margin:0 0 11px;border-bottom:.6px solid rgba(34,32,31,.12);font-weight:500;font-size:14px;letter-spacing:-.5px}
+.sh .back{position:absolute;left:0;display:flex;align-items:center;gap:4px;cursor:pointer;background:none;border:0;padding:0;font-weight:500;font-size:14px;letter-spacing:-.5px}
+.sv{border-radius:8px;background:var(--plate);overflow:hidden}
+.sv .tr{display:flex;align-items:center;gap:4px;width:100%;height:46px;padding:14px 12px;background:none;border:0;text-transform:uppercase;font-weight:500;font-size:14px;line-height:18.5px;letter-spacing:-.5px;cursor:pointer;text-align:left}
+.sv .tr .ch{margin-left:auto;transition:.25s}.sv.open .ch{transform:rotate(180deg)}
+.sv .ct{display:grid;grid-template-rows:0fr;transition:grid-template-rows .3s}.sv.open .ct{grid-template-rows:1fr}
+.sv .ct>div{overflow:hidden;display:flex;flex-wrap:wrap;gap:6px;padding:0 20px}
+.sv.open .ct>div{padding-bottom:18px}
+.sl{border:1px solid rgba(34,32,31,.12);border-radius:100px;padding:10px 12px;font-size:14px;letter-spacing:-.5px;white-space:nowrap}
+.promo{margin-top:6px;display:flex;align-items:center;justify-content:flex-end;gap:16px;height:77.5px;padding:12px;background:var(--clay);border-radius:12px;color:#fff;font-weight:500;font-size:14.5px;line-height:19px;letter-spacing:-.6px;text-align:right}
+.promo i{width:40px;height:40px;border-radius:50%;background:#fff;color:var(--ink);display:flex;align-items:center;justify-content:center;flex:none}
+/* ================= DESKTOP ================= */
+.dsk{position:relative;width:950px;height:620px;border-radius:12px;overflow:hidden;border:6px solid #111;background:#fff}
+.din{position:absolute;left:0;top:0;width:1440px;height:calc(608px / .655);transform:scale(.655);transform-origin:0 0}
+.ds{height:100%;overflow-y:auto;overflow-x:hidden;padding:126px 50px 40px;scrollbar-width:none}.ds::-webkit-scrollbar{display:none}
+.d-blk{border-radius:16px;margin-bottom:16px}
+.d-hero{height:560px;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:28px}
+.d-hero h1{margin:0;font-weight:400;font-size:48px;line-height:1.3;letter-spacing:-1.9px}.d-hero h1 em{font-family:"Playfair Display",Georgia,serif}.d-hero h1 mark{background:var(--hl);padding:0 8px;border-radius:6px}
+.d-oval{width:326px;height:422px;border-radius:200px;background:linear-gradient(#d9c1b8,#8d6a62);margin:60px auto}
+.d-svc{width:560px;margin:30px auto 60px;border-top:1px dashed var(--ink)}.d-svc div{padding:20px;text-align:left;font-size:22px;letter-spacing:-.9px;border-bottom:1px dashed var(--ink)}
+.d-ba{display:flex;gap:16px;justify-content:center;padding:70px 0}.d-ba img{width:310px;aspect-ratio:155/200;object-fit:cover;border-radius:10px}
+.dhdr{position:absolute;z-index:30;top:24px;left:50px;right:50px;height:78px;border-radius:16px;display:flex;align-items:center;justify-content:space-between;padding:0 20px;background:var(--sand);transition:left .45s,right .45s,top .45s,height .45s,border-radius .45s,background .3s,box-shadow .3s,padding .45s}
+.dlogo{display:flex;align-items:center;gap:10px;flex:none}
+.dlogo svg{width:40px;height:43px;flex:none;transition:.4s}
+.wm{font-size:22px;font-weight:300;letter-spacing:.06em;white-space:nowrap;max-width:230px;overflow:hidden;transition:max-width .4s,opacity .3s}.wm span{font-weight:300;opacity:.7}
+.dlinks{display:flex;gap:10px;align-items:center;font-weight:500;font-size:15px;letter-spacing:-.45px}
+.dl{padding:8px;border-radius:6px;display:flex;gap:2px;align-items:center;white-space:nowrap;cursor:pointer;transition:background .2s;border:0;background:none}
+.dl:hover,.dl.on{background:rgba(34,32,31,.06)}
+.dl svg{transition:.25s}.dl.on svg{transform:rotate(180deg)}
+.dright{display:flex;align-items:center;gap:6px}
+.dbook{background:var(--ink);color:#fff;border-radius:100px;height:46px;padding:0 16px;display:flex;align-items:center;font:500 16px/1 Onest;letter-spacing:-.48px;white-space:nowrap;transition:.4s}
+.dwa{border:1px solid rgba(34,32,31,.2);border-radius:100px;height:46px;padding:0 18px;display:flex;align-items:center;gap:5px;font:500 16px/1 Onest;letter-spacing:-.48px;white-space:nowrap;transition:.4s;overflow:hidden}
+.dwa span{white-space:nowrap;max-width:170px;transition:max-width .4s,opacity .3s}
+.dlang{font-weight:500;font-size:16px;margin-left:11px;white-space:nowrap;max-width:60px;overflow:hidden;transition:.4s}.dlang i{font-style:normal;color:var(--mute)}
+.dd{position:absolute;z-index:29;top:111px;left:208px;width:1024px;background:var(--sand);border-radius:16px;padding:24px;display:flex;gap:12px;opacity:0;transform:translateY(-6px);pointer-events:none;transition:opacity .25s,transform .3s}
+.dd.show{opacity:1;transform:none;pointer-events:auto}
+body[data-d=fade] .din[data-scrolled=true] .dd{top:96px}
+body[data-d=fade] .din[data-scrolled=true] .dd{background:var(--isl)}
+.dscrim{position:absolute;inset:0;z-index:28;background:rgba(43,43,43,.35);-webkit-backdrop-filter:blur(5px);backdrop-filter:blur(5px);opacity:0;pointer-events:none;transition:opacity .3s}
+.din[data-dd=open] .dscrim{opacity:1;pointer-events:auto}
+body .din[data-dd=open] .dhdr{box-shadow:0 0 0 1px rgba(34,32,31,.06)!important}
+body .din[data-dd=open] .dd.show{box-shadow:0 0 0 1px rgba(34,32,31,.06),0 18px 40px rgba(34,32,31,.16)!important}
+body[data-s=full] .din[data-dd=open] .dd.show{box-shadow:0 0 0 1px rgba(34,32,31,.06)!important}
+.dd .pm{width:647px;display:grid;grid-template-columns:317px 317px;gap:13px;align-content:start}
+.dd .tl{display:flex;flex-direction:column;gap:4px}
+.dd .tg{display:flex;align-items:center;gap:4px;height:58px;padding:18px 12px;border-radius:8px;background:var(--plate);color:rgba(34,32,31,.7);text-transform:uppercase;font-weight:500;font-size:15px;letter-spacing:-.45px;border:0;cursor:pointer;text-align:left;width:100%;transition:background .2s,color .2s}
+.dd .tg.is-active{background:#46423e;color:#fff}
+.dd .tg .ic{width:18px;height:18px;flex:none;display:flex;align-items:center;justify-content:center}
+.dd .tg .ar{margin-left:auto;display:flex}
+.dd .sc2{background:var(--plate);border-radius:12px;padding:18px 20px;display:flex;flex-direction:column;gap:8px;min-height:304px}
+.dd .sl2{display:flex;align-items:center;gap:6px;font-size:15px;line-height:18px}
+.dd .sl2 i{width:4px;height:4px;border-radius:50%;background:var(--ink);flex:none}
+.dd .sl2 svg{margin-left:auto}
+.dd .pr{width:317px;background:var(--plate);border-radius:12px;padding:12px;display:flex;flex-direction:column;justify-content:space-between;gap:24px;min-height:304px}
+.dd .pr .t{padding:8px;font-weight:500;font-size:18px;line-height:23.4px;letter-spacing:-.72px}
+.dd .pr .im{position:relative;height:150px;border-radius:8px;overflow:hidden}
+.dd .pr .im img{width:100%;height:100%;object-fit:cover;display:block}
+.dd .pr .im b{position:absolute;right:12px;bottom:12px;width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.25);color:#fff;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(4px)}
+.dd .ab{display:grid;grid-template-columns:317px 317px;gap:13px}
+.dd .abc{height:317px;background:var(--plate);border-radius:12px;padding:20px;display:flex;flex-direction:column;justify-content:flex-end;gap:7px}
+.dd .abc b{font-weight:500;font-size:16px;letter-spacing:-.48px}.dd .abc span{font-size:13px;line-height:1.4;color:rgba(34,32,31,.7)}
+.dd .ab{width:647px}
+.dhdr{height:83px}
+
+/* ===== island as separate element + transitions ===== */
+:root{--ease-in:cubic-bezier(.5,0,.9,.4);--ease-out:cubic-bezier(.2,.9,.25,1)}
+.misl,.disl{position:absolute;z-index:30;display:flex;align-items:center;justify-content:space-between;background:var(--isl);box-shadow:0 0 0 1px rgba(34,32,31,.08),0 12px 28px rgba(34,32,31,.2);border-radius:100px;opacity:0;pointer-events:none}
+.misl{top:12px;left:56px;right:56px;height:48px;padding:0 10px 0 14px}
+.misl .logo{width:26px;height:28px}
+.misl .right{display:flex;align-items:center;gap:10px}
+.misl .book{background:var(--cta);color:var(--ctaf);font:500 14px/1 Onest;letter-spacing:-.42px;padding:9px 14px;border-radius:100px;white-space:nowrap}
+.disl{top:16px;left:208px;right:208px;height:72px;padding:0 9px 0 14px;box-shadow:0 0 0 1px rgba(34,32,31,.08),0 14px 34px rgba(34,32,31,.22)}
+.disl .dlogo svg{width:34px;height:37px}
+.disl .dbook{background:var(--cta);color:var(--ctaf);height:44px;padding:0 18px;font-size:15px}
+.disl .dwa{width:46px;height:44px;padding:0;justify-content:center}
+/* header out / island in: SLIDE (smooth): short travel, long expo-out, overlapped */
+/* SOFT: no movement, island and header cross-fade in place */
+.screen[data-scrolled=true] .menu{top:68px}
+.menu{transition:opacity .25s,transform .3s,top .3s}
+body .din[data-dd=open] .disl{box-shadow:0 0 0 1px rgba(34,32,31,.06)!important}
+
+/* ===== MORPH v2 (as in references): links stay put, edges move in, one 0.7s timeline ===== */
+:root{--E:cubic-bezier(.65,0,.35,1);--T:.7s;--F:.3s}
+/* mobile */
+/* desktop: links are absolutely positioned, so nothing shifts sideways while the edges move */
+/* ===== EEZY (as in references): links stay put, edges move in, one 0.7s timeline ===== */
+
+/* mobile */
+/* desktop: links are absolutely positioned, so nothing shifts sideways while the edges move */
+
+/* eezy specifics: island = monogram + CTA + menu button; links fade; direction-based */
+.dmenu{width:0;height:44px;opacity:0;overflow:hidden;flex:none;border-radius:50%;border:0 solid rgba(34,32,31,.2);display:flex;align-items:center;justify-content:center;background:none;padding:0;cursor:pointer;position:relative}
+.dmenu i{position:absolute;left:13px;right:13px;height:1.6px;background:currentColor;border-radius:2px;transition:.3s}
+.dmenu i:nth-child(1){top:17px}.dmenu i:nth-child(2){top:25px}
+.din[data-dd=open] .dmenu i:nth-child(1){top:21px;transform:rotate(45deg)}.din[data-dd=open] .dmenu i:nth-child(2){top:21px;transform:rotate(-45deg)}
+#dd-menu{left:420px;width:600px;flex-direction:column;gap:6px}
+#dd-menu .g2{display:grid;grid-template-columns:270px 270px;gap:12px;align-items:start}
+#dd-menu .promo{margin:0;height:84px}
+
+/* ===== PLATE mode: content fades, only the backing plate scales into the island ===== */
+.mplate,.dplate,.dmini{display:none}
+body[data-a=plate] .mplate,body[data-a=plate] .dplate,body[data-a=plate] .dmini{display:flex}
+body[data-a=plate] .disl{display:none}
+.mplate,.dplate{position:absolute;z-index:29;background:var(--sand);transition:left var(--T) var(--E),right var(--T) var(--E),top var(--T) var(--E),height var(--T) var(--E),border-radius var(--T) var(--E),background var(--T) var(--E),box-shadow var(--T) var(--E);pointer-events:none}
+.mplate{left:16px;right:16px;top:16px;height:56px;border-radius:8px}
+.dplate{left:50px;right:50px;top:24px;height:83px;border-radius:16px}
+.screen[data-scrolled=true] .mplate{left:56px;right:56px;top:12px;height:48px;border-radius:100px;background:var(--isl);box-shadow:0 0 0 1px rgba(34,32,31,.08),0 12px 28px rgba(34,32,31,.2)}
+.screen[data-mid=true]:not([data-scrolled=true]) .mplate{box-shadow:0 0 0 1px rgba(34,32,31,.08),0 10px 24px rgba(34,32,31,.14)}
+.din[data-scrolled=true] .dplate{left:576px;right:576px;top:14px;height:54px;border-radius:100px;background:var(--isl);box-shadow:0 0 0 1px rgba(34,32,31,.1),0 10px 28px rgba(34,32,31,.16)}
+.din[data-mid=true]:not([data-scrolled=true]) .dplate{box-shadow:0 0 0 1px rgba(34,32,31,.08),0 12px 30px rgba(34,32,31,.14)}
+/* full header and island content: no geometry changes, pure crossfade */
+body[data-a=plate] .mh,body[data-a=plate] .dhdr{background:transparent!important;box-shadow:none!important;transition:opacity .35s ease .35s}
+body[data-a=plate] .screen[data-scrolled=true] .mh,body[data-a=plate] .din[data-scrolled=true] .dhdr{opacity:0;pointer-events:none;transition:opacity .25s ease}
+.dmb{width:44px;height:44px;border-radius:50%;border:1px solid rgba(34,32,31,.2);background:none;position:relative;cursor:pointer;padding:0;color:inherit}
+.dmb i{position:absolute;left:13px;right:13px;height:1.6px;background:currentColor;border-radius:2px}
+.dmb i:nth-child(1){top:16px}.dmb i:nth-child(2){top:24px}
+
+/* persistent elements (logo, CTA, menu) live in their own layer that travels with the plate; the rest fades */
+.dmini{position:absolute;z-index:31;display:flex;align-items:center;left:50px;right:50px;top:24px;height:83px;padding:0 298px 0 20px;pointer-events:none;transition:left var(--T) var(--E),right var(--T) var(--E),top var(--T) var(--E),height var(--T) var(--E),padding var(--T) var(--E)}
+.din[data-scrolled=true] .dmini{left:576px;right:576px;top:14px;height:54px;padding:0 5px}
+.dmini>*{pointer-events:auto}
+.dmini .dlogo{width:40px;flex:none;justify-content:center;transition:width var(--T) var(--E)}
+.dmini .dlogo svg{width:40px;height:43px;transition:width var(--T) var(--E),height var(--T) var(--E)}
+.din[data-scrolled=true] .dmini .dlogo{width:44px}
+.din[data-scrolled=true] .dmini .dlogo svg{width:34px;height:37px}
+.dmini .dbook{margin-left:auto;height:46px;padding:0 16px;font-size:16px;background:var(--ink);color:#fff;transition:height var(--T) var(--E),padding var(--T) var(--E),font-size var(--T) var(--E),background var(--T) var(--E),color var(--T) var(--E)}
+.din[data-scrolled=true] .dmini .dbook{background:var(--cta);color:var(--ctaf);height:44px;padding:0 18px;font-size:15px}
+.dmb{margin-left:0;width:0;opacity:0;border-width:0;overflow:hidden;flex:none;transition:width var(--T) var(--E),margin var(--T) var(--E),opacity .2s ease}
+.din[data-scrolled=true] .dmb{width:44px;margin-left:8px;opacity:1;border-width:1px;transition:width var(--T) var(--E),margin var(--T) var(--E),opacity .35s ease .35s}
+body[data-a=plate] .dhdr .dlogo svg,body[data-a=plate] .dhdr .dbook{visibility:hidden}
+/* mobile */
+body[data-a=plate] .misl{display:flex;left:16px;right:16px;top:16px;height:56px;padding:10px 12px;opacity:1;background:transparent;box-shadow:none;transform:none;pointer-events:none;transition:left var(--T) var(--E),right var(--T) var(--E),top var(--T) var(--E),height var(--T) var(--E),padding var(--T) var(--E)}
+body[data-a=plate] .screen[data-scrolled=true] .misl{left:56px;right:56px;top:12px;height:48px;padding:0 10px 0 14px}
+body[data-a=plate] .misl>*,body[data-a=plate] .misl .right>*{pointer-events:auto}
+body[data-a=plate] .misl .logo{width:31px;height:34px;transition:width var(--T) var(--E),height var(--T) var(--E)}
+body[data-a=plate] .screen[data-scrolled=true] .misl .logo{width:26px;height:28px}
+body[data-a=plate] .misl .right{gap:0}
+body[data-a=plate] .misl .book{padding:11px 16px;background:var(--ink);color:#fff;transition:padding var(--T) var(--E),background var(--T) var(--E),color var(--T) var(--E)}
+body[data-a=plate] .screen[data-scrolled=true] .misl .book{padding:9px 14px;background:var(--cta);color:var(--ctaf)}
+.wsp{width:0;flex:none}
+body[data-a=plate] .misl .wsp{width:41px;transition:width var(--T) var(--E)}
+body[data-a=plate] .screen[data-scrolled=true] .misl .wsp{width:0}
+body[data-a=plate] .misl .burger{margin-left:12px;transition:margin var(--T) var(--E)}
+body[data-a=plate] .screen[data-scrolled=true] .misl .burger{margin-left:10px}
+
+/* mobile: при открытии бургера остров расширяется до ширины меню */
+body[data-a=plate] .screen[data-scrolled=true][data-open=true] .mplate{left:16px;right:16px;top:16px;height:56px;border-radius:16px}
+body[data-a=plate] .screen[data-scrolled=true][data-open=true] .misl{left:16px;right:16px;top:16px;height:56px;padding:10px 12px}
+body[data-a=plate] .screen[data-scrolled=true][data-open=true] .misl .logo{width:31px;height:34px}
+body[data-a=plate] .screen[data-scrolled=true][data-open=true] .misl .book{padding:11px 16px}
+body[data-a=plate] .screen[data-scrolled=true][data-open=true] .misl .burger{margin-left:12px}
+/* сначала расширяется хедер, потом появляется меню */
+.menu{transition:opacity .2s,transform .2s,top .3s}
+body[data-a=plate] .screen[data-open=true] .menu{transition:opacity .35s ease .5s,transform .45s cubic-bezier(.22,.7,.2,1) .5s,top .3s}
+body[data-a=plate] .screen[data-open=true] .scrim{transition-delay:.15s}
+
+.screen[data-scrolled=true][data-open=true] .menu{top:76px}
+body[data-a=plate] .mh .logo,body[data-a=plate] .mh .book,body[data-a=plate] .mh .burger{visibility:hidden}
+
+/* desktop island = logo + links + CTA + WhatsApp icon; wordmark, WhatsApp label and DE/EN fade */
+body[data-a=plate] .dmini{padding:0 80px 0 20px}
+body[data-a=plate] .din[data-scrolled=true] .dmini{left:208px;right:208px;top:16px;height:72px;padding:0 9px 0 14px}
+body[data-a=plate] .din[data-scrolled=true] .dplate{left:208px;right:208px;top:16px;height:72px}
+body[data-a=plate] .dmini .dlinks{position:absolute;left:250px;top:50%;transform:translateY(-50%);transition:left var(--T) var(--E)}
+body[data-a=plate] .din[data-scrolled=true] .dmini .dlinks{left:92px}
+body[data-a=plate] .dmini .dlogo{width:40px}
+body[data-a=plate] .din[data-scrolled=true] .dmini .dlogo{width:34px}
+body[data-a=plate] .dmini .dbook{margin-left:auto;margin-right:6px;transition:height var(--T) var(--E),padding var(--T) var(--E),font-size var(--T) var(--E),background var(--T) var(--E),color var(--T) var(--E),margin var(--T) var(--E)}
+body[data-a=plate] .din[data-scrolled=true] .dmini .dbook{margin-right:8px}
+body[data-a=plate] .dmini .dwa{width:212px;height:46px;justify-content:flex-start;padding:0 0 0 26px;gap:5px;flex:none;transition:width var(--T) var(--E),height var(--T) var(--E),gap var(--T) var(--E),padding var(--T) var(--E)}
+body[data-a=plate] .dmini .dwa span{white-space:nowrap;transition:opacity .3s ease .5s}
+body[data-a=plate] .din[data-scrolled=true] .dmini .dwa{width:44px;height:44px;gap:0;padding-left:9px}
+body[data-a=plate] .din[data-scrolled=true] .dmini .dwa span{opacity:0;transition:opacity .15s ease 0s}
+body[data-a=plate] .dhdr .dlinks,body[data-a=plate] .dhdr .dwa{visibility:hidden}
+body[data-a=plate] .dhdr .wm{font-size:17px;max-width:none;width:auto}
+
+/* hover dropdown with sliding panels, as on the live site */
+.dd .mask{position:relative;width:647px;height:317px;overflow:hidden;flex:none}
+.dd .pn{position:absolute;inset:0;transition:transform .45s cubic-bezier(.4,0,.2,1),opacity .45s cubic-bezier(.4,0,.2,1)}
+.dd .pn[data-pos=c]{transform:none;opacity:1}
+.dd .pn[data-pos=l]{transform:translateX(-110%);opacity:0;pointer-events:none}
+.dd .pn[data-pos=r]{transform:translateX(110%);opacity:0;pointer-events:none}
+.dd .mask.nt .pn{transition:none !important}
+body[data-p=fade] .dd .pn{transition:opacity .55s ease,transform .55s ease}
+body[data-p=fade] .dd .pn[data-pos=l],body[data-p=fade] .dd .pn[data-pos=r]{transform:none}
+body[data-p=fade] .dd .pn[data-pos=l],body[data-p=fade] .dd .pn[data-pos=r]{transition:opacity .25s ease}
+body[data-p=fade] .dd .pn[data-pos=c]{transition:opacity .45s ease .2s}
+.dd .pn .pm{height:317px;align-content:stretch}
+.dd .pn .tl{height:317px}.dd .pn .tg{flex:1;height:auto}
+.dd .pn .sc2{height:317px;min-height:0}
+.dd .pn .ab{height:317px}
+.dd .pr{height:317px;min-height:317px}
+.dd .all{margin-top:auto;font-size:15px;text-decoration:underline;text-underline-offset:3px}
+
+body{background:#302d2b}.demo-tools{max-width:1424px;margin:0 auto;padding:24px 16px 20px;display:flex;align-items:center;justify-content:space-between;gap:20px;color:#fff}.demo-tools h1{font:500 18px/1.35 Onest,Arial;margin:0 0 6px}.demo-tools p{font:400 13px/1.5 Onest,Arial;margin:0;color:#c8c2bd}.demo-actions{display:flex;gap:8px;flex-wrap:wrap}.demo-actions button{border:1px solid #77706b;border-radius:100px;background:transparent;color:#fff;padding:11px 17px;font-size:13px;cursor:pointer}.demo-actions button:first-child{background:#f8f3ef;color:#22201f;border-color:#f8f3ef}.demo-actions button:hover{filter:brightness(.92)}button:focus-visible,a:focus-visible{outline:2px solid #cf9c4f;outline-offset:4px}.wrap{gap:24px;padding:0 16px 28px;align-items:flex-start}.col{gap:10px}.desktop-col{max-width:100%}.stage-heading{display:flex;align-items:center;justify-content:space-between;width:100%;font-size:13px;color:#fff;gap:12px}.stage-heading output{font-size:12px;color:#bfb7b0;font-variant-numeric:tabular-nums}.stage-caption{color:#bfb7b0;font-size:12px;line-height:1.5;margin:0;max-width:100%;align-self:flex-start}.mobile-col .stage-caption{max-width:406px}.dsk{box-sizing:content-box;width:min(950px,calc(100vw - 44px));height:calc(900px * var(--desktop-scale,.659722));border-radius:15px}.din{width:1440px;height:900px;transform:scale(var(--desktop-scale,.659722))}.phone-device{width:min(406px,calc(100vw - 32px));height:calc(860px * var(--phone-scale,1));position:relative}.screen{box-sizing:content-box;width:390px;max-width:none;height:844px;border-radius:30px;transform:scale(var(--phone-scale,1));transform-origin:0 0}.ds{padding:134px 50px 0}.sc{padding:92px 16px 0}.demo-tail{height:280px;background:#fff}.dhdr,.dplate,.dmini{height:78px}body[data-a=plate] .dmini{padding-right:86px}body[data-a=plate] .dmini .dlogo{width:42px;height:43px;position:relative;flex:none}body[data-a=plate] .din[data-scrolled=true] .dmini .dlogo{width:34px;height:35px}.logo-mark{position:absolute;left:0;top:50%;transform:translateY(-50%) scale(1);transform-origin:left center;transition:transform var(--T) var(--E)}body[data-a=plate] .din[data-scrolled=true] .logo-mark{transform:translateY(-50%) scale(.8095238)}.logo-full{display:block}.logo{display:block;position:relative}.mobile-logo{position:absolute;left:0;top:50%;transform:translateY(-50%) scale(1);transform-origin:left center;transition:transform var(--T) var(--E)}body[data-a=plate] .screen[data-scrolled=true] .misl .mobile-logo{transform:translateY(-50%) scale(.8387097)}body[data-a=plate] .screen[data-open=true] .misl .mobile-logo{transform:translateY(-50%) scale(1)}.wa-icon{display:block;flex:none}.dwa .wa-icon{width:24px;height:24px}.mh .wa-icon{width:18.947px;height:18.947px}.burger img{position:absolute;inset:0;display:block;width:24px;height:24px;transition:opacity .2s,transform .3s}.menu-close-icon{opacity:0;transform:rotate(-45deg)}.screen[data-open=true] .menu-close-icon{opacity:1;transform:none}.screen[data-open=true] .menu-open-icon{opacity:0;transform:rotate(45deg)}body[data-a=plate] .screen[data-open=true] .mh{opacity:1;pointer-events:auto;transition:opacity .25s .4s}body[data-a=plate] .screen[data-open=true] .mplate{border-radius:8px}body[data-a=plate] .screen[data-open=true] .misl .wsp{width:41px}.menu{top:77px}.pnl.root{height:326px;gap:5px}.pnl.root .nl{height:48px;flex:none;text-transform:uppercase}.lang-row{display:flex;gap:5px;align-items:center;height:24px;margin-top:5px;font-size:14px;flex:none;padding:4px}.lang-row span{color:rgba(34,32,31,.5)}.pnl .ic img{display:block;width:18px;height:18px}.right-icon{display:block;width:24px;height:24px}.back-icon{display:block;width:18px;height:18px;transform:rotate(180deg)}.chevron-icon{display:block;width:16px;height:16px}.promo{height:70px;border-radius:8px;padding:16px;gap:16px;font-size:15px;line-height:19.5px;letter-spacing:-.6px;margin-top:5px}.promo i{width:30px;height:30px}.promo i img{width:15px;height:15px}.dd{left:235.5px;top:107px;width:969px;padding:24px;gap:12px}.din[data-scrolled=true] .dd{top:96px}.dd .mask,.dd .pm,.dd .ab{width:610px}.dd .mask,.dd .pn .pm,.dd .pn .tl,.dd .pn .sc2,.dd .pn .ab{height:306px}.dd .pm,.dd .ab{grid-template-columns:299px 299px;gap:12px}.dd .pn .tg{height:58px;flex:none}.dd .tg .ic{width:19px;height:19px}.dd .tg .ic img{width:19px;height:19px}.dd .tg.is-active .ic img{filter:brightness(0) invert(1)}.dd .tg .ar img{width:22px;height:22px;transform:rotate(-90deg);opacity:.5}.dd .pr{width:299px;height:306px;min-height:306px}.dd .pr .im{height:150px}.dd .pr .im img{width:100%;height:100%;object-fit:cover}.dd .pr .im b img{width:15px;height:15px}.dd .abc{height:306px}.dd .sc2{padding:16px 20px;gap:0}.dd .sl2{padding:8px 0;font-size:14px;line-height:15.4px}.dd .sl2 .arrow-icon{width:8px;height:8px}.dd .sl2 i{background:none;width:10px;height:14px}.dd .sl2 i::before{content:'•';font-size:12px;line-height:14px}.dd .all{font-size:14px;line-height:15.4px}.dd .pr .t{font-size:18px;line-height:23.4px}.dlinks .dl{height:34px}.dlinks .dl.on .chevron-icon{transform:rotate(180deg)}.demo-hero{position:relative}.hero-desktop{display:grid;grid-template-columns:660px 660px;gap:20px}.hero-copy{height:700px;background:#f8f3ef;border-radius:16px;position:relative;display:flex;align-items:center;justify-content:center;text-align:center;overflow:hidden}.hero-flower{position:absolute;left:50%;top:50%;width:409px;height:409px;transform:translate(-50%,-50%)}.hero-copy-content{position:relative;display:flex;flex-direction:column;align-items:center;gap:24px}.hero-copy h1{font-size:32px;font-weight:400;line-height:1.3;letter-spacing:-1.28px;margin:0}.hero-copy h1 em{font-family:'Playfair Display',Georgia,serif;font-style:italic;font-weight:400}.hero-copy mark{background:#ffd289;border-radius:6px;padding:0 7px;color:#22201f}.hero-cta{border:0;background:#22201f;color:#fff;font-size:16px;line-height:16px;font-weight:500;letter-spacing:-.48px;border-radius:100px;padding:19px 25px;cursor:pointer;white-space:nowrap}.corner{position:absolute;width:25px;height:25px}.corner-0{top:32px;left:32px}.corner-1{top:32px;right:32px}.corner-2{bottom:32px;left:32px}.corner-3{bottom:32px;right:32px}.hero-photo{height:700px;border-radius:16px;background:#af8a82;overflow:hidden;position:relative;color:#fff}.portrait{position:absolute;width:326px;height:422px;left:50%;top:50%;transform:translate(-50%,calc(-50% + 1px));border-radius:212px;overflow:hidden}.portrait-photo{position:absolute;width:104.48%;height:104.61%;left:-2.23%;top:.04%;max-width:none}.orbit{position:absolute}.orbit-top{left:432px;top:.5px;width:228px;height:202px}.orbit-bottom{left:0;top:486.5px;width:272px;height:214px}.clean-badge{position:absolute;left:32px;top:32px;border:1px dashed #fff;border-radius:100px;padding:8px 16px;font-size:15px;line-height:20.25px;letter-spacing:-.45px}.glass{position:absolute;background:rgba(254,231,231,.15);backdrop-filter:blur(3.5px);border-radius:8px;font-size:14px;line-height:18.2px;letter-spacing:-.56px;font-weight:500}.glass-pro{left:67px;top:229px;width:163px;height:90px;display:flex;align-items:center;justify-content:center}.glass-team{left:451px;top:265.5px;width:163px;height:100px;padding:10px;white-space:nowrap}.badge-plus{position:absolute;left:10px;top:74px;width:16px;height:16px}.glass-flower{left:162px;top:499.5px;padding:25px;display:flex;align-items:center}.glass-flower>img{width:47px;height:47px}.photo-chip{position:absolute;display:flex;align-items:center;gap:8px;font-size:15px;line-height:20.25px;letter-spacing:-.45px;white-space:nowrap}.photo-chip img{width:4px;height:4px}.chip-top{top:88px;left:50%;transform:translateX(-50%);flex-direction:column}.chip-bottom{top:587px;left:50%;transform:translateX(-50%);flex-direction:column}.chip-left{left:79px;top:192px}.chip-right{left:493px;top:192px}.chip-bottom-left{left:45px;top:441px}.chip-bottom-right{left:505px;top:441px}.hero-mobile{display:flex;flex-direction:column;gap:8px}.hero-mobile .hero-copy{height:405px;border-radius:8px;padding:0 14px}.hero-mobile .hero-copy-content{gap:16px;width:100%}.hero-mobile h1{font-size:22px;line-height:1.3;letter-spacing:-.88px;width:100%}.hero-mobile mark{border-radius:4px;padding:0 4px}.hero-mobile .hero-flower{width:259px;height:271px;top:calc(50% + 8px)}.hero-mobile .hero-cta{height:44px;padding:13px 16px;font-size:14px;line-height:14px;width:100%}.hero-mobile .hero-photo{height:405px;border-radius:8px}.hero-mobile .portrait{width:200px;height:260px}.hero-mobile .orbit-top{left:256px;top:4px;width:100px;height:110px}.hero-mobile .orbit-bottom{left:0;top:320px;width:141px;height:85px}.hero-mobile .clean-badge{left:16px;top:16px;padding:5px 10px;font-size:14px;line-height:18.9px}.hero-mobile .glass{border-radius:5px;font-size:12px;line-height:15.6px;letter-spacing:-.48px}.hero-mobile .glass-pro{left:29px;top:106px;width:auto;height:auto;padding:20px 16px}.hero-mobile .glass-team{left:210px;top:197px;width:129px;height:65px;padding:8px 8px 5px 5px}.hero-mobile .badge-plus{left:5px;top:45px;width:16px;height:16px}.hero-mobile .glass-flower{left:87px;top:289px;padding:15px}.hero-mobile .glass-flower>img{width:31px;height:31px}@media(max-width:700px){.demo-tools{align-items:flex-start;flex-direction:column;padding-top:18px}.wrap{gap:28px}.stage-heading{font-size:12px}.demo-actions button{font-size:12px;padding:10px 14px}}@media(prefers-reduced-motion:reduce){*,*::before,*::after{transition-duration:.01ms!important;transition-delay:0ms!important;scroll-behavior:auto!important}}
+.dd .tg .ar img{transform:none}.dd .tg:not(.is-active) .ar{visibility:hidden}.dd .sl2 i::before{content:none}.dot-icon{display:block;width:10px;height:14px}
+.hero-mobile .hero-flower{top:50%}.badge-plus{background:rgba(255,255,255,.25);border-radius:8px;padding:4px}
+.dd .abc{position:relative;padding:20px;display:flex;flex-direction:column;justify-content:space-between;align-items:flex-end}.about-image{position:relative;width:86px;height:95px;border-radius:8px;overflow:hidden;flex:none}.about-image img{position:absolute;display:block;left:0;top:-16.1%;width:100%;height:139.62%;max-width:none}.about-image-1 img{left:-6.06%;top:-2.8%;width:112.13%;height:152.28%}.about-copy{display:flex;flex-direction:column;gap:8px;width:100%}.dd .about-copy b{font-size:16px;line-height:20.8px;letter-spacing:-.64px}.dd .about-copy span{font-size:14px;line-height:18.9px;letter-spacing:-.42px;color:rgba(34,32,31,.5)}.pnl.beh,.pnl.ueb{padding:0;gap:0;background:transparent}.pnl .sh{height:48px;padding:12px 16px;margin:0;background:#f8f3ef;border-radius:8px 8px 0 0;flex:none;font-size:14px;line-height:18.2px}.pnl .sh .back{left:16px}.back-icon{width:20px;height:20px}.sub-links{background:#f8f3ef;padding:16px;display:flex;flex-direction:column;gap:12px;border-radius:0 0 8px 8px}.sub-links .lang-row{margin:0;align-self:flex-start}.sv-group{display:flex;flex-direction:column;gap:5px}.sv .tr{height:48px;padding:12px;line-height:18.9px}.sv .tr .ic{width:18px;height:18px;display:flex;align-items:center;flex:none}.sv .tr .ic img{width:18px;height:18px}.sv .tr .ch{width:24px;height:24px}.sv .tr .ch img{display:block;width:24px;height:24px;transform:rotate(90deg)}.sv .ct>div{padding:0 12px;flex-direction:column;align-items:flex-start;gap:6px}.sv.open .ct>div{padding-bottom:12px;padding-top:8px}.sl{font-size:14px;line-height:15.4px;letter-spacing:-.42px;padding:12px 14px}.mobile-about-cards{display:flex;flex-direction:column;gap:8px}.mobile-about-card{padding:8px;display:flex;gap:16px;align-items:center;border-radius:8px;background:#f2e7de;min-height:89px}.mobile-about-card .about-image{width:73px;height:73px;border-radius:5px}.mobile-about-card .about-image-0 img{inset:0;width:100%;height:100%;object-fit:cover}.mobile-about-card .about-image-1 img{left:0;top:-2.9%;width:100%;height:150.02%}.mobile-about-card .about-copy{gap:8px;font-size:13px}.mobile-about-card b{font-weight:500;line-height:16.9px;letter-spacing:-.52px}.mobile-about-card span{line-height:17.55px;letter-spacing:-.39px;color:rgba(34,32,31,.5)}
+.desktop-col{width:962px;max-width:100%}.dsk{width:calc(100% - 12px)}.mobile-col{width:406px;max-width:100%}.phone-device{width:100%;max-width:406px}
+.sub-links .lang-row{height:22px}
+body[data-a=plate] .dmini .dlinks{left:300px}body[data-a=plate] .din[data-scrolled=true] .dmini .dlinks{left:142px}body[data-a=plate] .dmini .dbook{width:159px;justify-content:center;transition:width var(--T) var(--E),height var(--T) var(--E),padding var(--T) var(--E),font-size var(--T) var(--E),background var(--T) var(--E),color var(--T) var(--E),margin var(--T) var(--E)}body[data-a=plate] .din[data-scrolled=true] .dmini .dbook{width:135px}body[data-a=plate] .dmini .dwa{padding:0 18px}body[data-a=plate] .din[data-scrolled=true] .dmini .dwa{padding:0 9px}.sl{border-color:rgba(34,32,31,.2)}.menu[data-view=beh] .promo{height:62px;font-size:14px;line-height:18.2px;gap:6px}.menu[data-view=beh] .promo-label br{display:none}.menu[data-view=beh] .promo-label{white-space:nowrap}
+.dl.on{background:#e5d8ce}
+</style><meta name="description" content="BeautyCenter — интерактивный прототип хедера и меню."><style>@media (max-width: 900px) {
+html,body { margin:0; padding:0; width:100%; height:100%; overflow:hidden; background:#fff; }
+.demo-tools,.desktop-col,.stage-heading,.stage-caption { display:none!important; }
+.wrap { display:block; width:100%; max-width:none; padding:0; margin:0; }
+.mobile-col { display:block; width:100%; max-width:none; }
+.phone-device { width:100%; max-width:none; height:100vh; height:100dvh; }
+.screen { width:100%; max-width:none; height:100vh; height:100dvh; border:0; border-radius:0; transform:none!important; }
+.sc { overscroll-behavior-y:contain; -webkit-overflow-scrolling:touch; touch-action:pan-y; }
+.menu { overscroll-behavior-y:contain; -webkit-overflow-scrolling:touch; }
+}
+@media (max-width:350px) {
+body[data-a=plate] .screen[data-scrolled=true] .mplate,
+body[data-a=plate] .screen[data-scrolled=true] .misl { left:24px; right:24px; }
+body[data-a=plate] .screen[data-scrolled=true][data-open=true] .mplate,
+body[data-a=plate] .screen[data-scrolled=true][data-open=true] .misl { left:16px; right:16px; }
+}
+</style></head><body data-p="fade" data-c="sand" data-d="fade" data-s="full" data-a="plate">
+<header class="demo-tools" lang="ru"><div><h1>BeautyCenter · анимация хедера</h1><p>Прокрути внутри экрана: после 40 px шапка сворачивается в остров.</p></div><div class="demo-actions"><button id="demo-scroll" type="button">Показать сворачивание</button><button id="demo-reset" type="button">В начало</button></div></header>
+<main class="wrap"><section class="col desktop-col"><div class="stage-heading" lang="ru"><span>Десктоп · 1440 px</span><output id="dstate">Шапка · 0 px</output></div><div class="dsk" id="desktop-frame"><div class="din" id="din" data-scrolled="false"><div class="dscrim"></div><div class="dplate"></div><div class="dmini" id="dmini"><a class="dlogo" aria-label="BeautyCenter Basel"><img data-asset="a0" class="logo-mark" alt="" width="42" height="43"></a><nav class="dlinks"><button class="dl" data-dd="beh">Behandlungen<img data-asset="a1" class="chevron-icon" alt="" ></button><button class="dl" data-dd="ueb">Über uns<img data-asset="a1" class="chevron-icon" alt="" ></button><a class="dl">Gutscheine</a><a class="dl">Kosmetik</a><a class="dl">Kontakt</a></nav><a class="dbook">Termin buchen</a><a class="dwa"><img data-asset="a2" class="wa-icon" alt="" ><span>Kontaktieren Sie uns</span></a></div><div class="dhdr" id="dh">
+<a class="dlogo" aria-label="BeautyCenter Basel"><img data-asset="a3" class="logo-full" alt="" width="206" height="43"></a>
+<nav class="dlinks" id="dl">
+<button class="dl" data-dd="beh">Behandlungen<img data-asset="a1" class="chevron-icon" alt="" ></button>
+<button class="dl" data-dd="ueb">Über uns<img data-asset="a1" class="chevron-icon" alt="" ></button>
+<a class="dl">Gutscheine</a><a class="dl">Kosmetik</a><a class="dl">Kontakt</a></nav>
+<div class="dright"><a class="dbook">Termin buchen</a><a class="dwa"><img data-asset="a2" class="wa-icon" alt="" ><span>Kontaktieren Sie uns</span></a><span class="dlang">DE/<i>EN</i></span></div>
+</div><div class="dd" id="dd-main"><div class="mask" id="pmask"><div class="pn" id="pn-beh" data-pos="c"><div class="pm"><div class="tl"><button class="tg is-active" data-cat="0"><span class="ic"><img data-asset="a4" class="plus-icon" alt="" ></span>Gesicht &amp; Dekolleté<span class="ar"><img data-asset="a5" class="category-arrow" alt="" ></span></button><button class="tg" data-cat="1"><span class="ic"><img data-asset="a4" class="plus-icon" alt="" ></span>Wimpern &amp; Augenbrauen<span class="ar"><img data-asset="a5" class="category-arrow" alt="" ></span></button><button class="tg" data-cat="2"><span class="ic"><img data-asset="a4" class="plus-icon" alt="" ></span>Haarentfernung<span class="ar"><img data-asset="a5" class="category-arrow" alt="" ></span></button><button class="tg" data-cat="3"><span class="ic"><img data-asset="a4" class="plus-icon" alt="" ></span>Injektionen<span class="ar"><img data-asset="a5" class="category-arrow" alt="" ></span></button><button class="tg" data-cat="4"><span class="ic"><img data-asset="a4" class="plus-icon" alt="" ></span>Körper<span class="ar"><img data-asset="a5" class="category-arrow" alt="" ></span></button></div><div class="sc2" id="sc2"><a class="sl2"><i><img data-asset="a6" class="dot-icon" alt="" ></i>Permanent Make-up<img data-asset="a7" class="arrow-icon" alt="" ></a><a class="sl2"><i><img data-asset="a6" class="dot-icon" alt="" ></i>Kosmetische Behandlungen<img data-asset="a7" class="arrow-icon" alt="" ></a><a class="sl2"><i><img data-asset="a6" class="dot-icon" alt="" ></i>Kosmetische Behandlungen<img data-asset="a7" class="arrow-icon" alt="" ></a><a class="sl2"><i><img data-asset="a6" class="dot-icon" alt="" ></i>Kosmetische Behandlungen<img data-asset="a7" class="arrow-icon" alt="" ></a><a class="all">Alle ansehen</a></div></div></div><div class="pn" id="pn-ueb" data-pos="r"><div class="ab"><a class="abc"><div class="about-image about-image-0"><img data-asset="a8" class="" alt="" ></div><div class="about-copy"><b>Über uns</b><span>Natürliche Ergebnisse durch individuelle, schonende Behandlung.</span></div></a><a class="abc"><div class="about-image about-image-1"><img data-asset="a9" class="" alt="" ></div><div class="about-copy"><b>Team</b><span>Erfahrenes Team: ehrliche Beratung, präzise Ausführung.</span></div></a></div></div></div><a class="pr"><div class="t">Buchen Sie jetzt<br>Ihre Behandlung</div><div class="im"><img data-asset="a10" class="promo-photo" alt="" ><b><img data-asset="a7" class="arrow-icon" alt="" ></b></div></a></div><div class="ds" id="ds"><section class="demo-hero hero-desktop" aria-label="Первый экран">
+ <div class="hero-copy"><img data-asset="a11" class="hero-flower" alt="" ><img data-asset="a12" class="corner corner-0" alt="" ><img data-asset="a12" class="corner corner-1" alt="" ><img data-asset="a12" class="corner corner-2" alt="" ><img data-asset="a12" class="corner corner-3" alt="" >
+ <div class="hero-copy-content"><h1><em>Nachhaltige Schönheit –</em><br><mark>Ihre natürlich strahlende</mark><br>beste Version.</h1><button class="hero-cta" type="button">Jetzt Termin buchen</button></div></div>
+ <div class="hero-photo"><img data-asset="a13" class="orbit orbit-top" alt="" ><img data-asset="a14" class="orbit orbit-bottom" alt="" ><div class="portrait"><img data-asset="a15" class="portrait-photo" alt="" ></div>
+ <div class="clean-badge">Clean Beauty</div><div class="glass glass-pro">Kosmetik-Profis</div><div class="glass glass-team">Erfahrenes Team<img data-asset="a16" class="badge-plus" alt="" ></div><div class="glass glass-flower"><img data-asset="a17" class="" alt="" ></div>
+ <span class="photo-chip chip-top">Individuelle Lösungen <img data-asset="a18" class="" alt="" ></span><span class="photo-chip chip-left">Achtsamkeit <img data-asset="a18" class="" alt="" ></span><span class="photo-chip chip-right"><img data-asset="a18" class="" alt="" > Natürlichkeit</span><span class="photo-chip chip-bottom-left">Hautgesundheit <img data-asset="a18" class="" alt="" ></span><span class="photo-chip chip-bottom-right"><img data-asset="a18" class="" alt="" > Wirksamkeit</span><span class="photo-chip chip-bottom"><img data-asset="a18" class="" alt="" > Sanfte Pflege</span></div></section><div class="demo-tail" aria-hidden="true"></div></div></div></div><p class="stage-caption" lang="ru">Порог — 40 px. Возврат к полной шапке — в начале экрана.</p></section>
+<section class="col mobile-col"><div class="stage-heading" lang="ru"><span>Телефон · 390 px</span><output id="mstate">Шапка · 0 px</output></div><div class="phone-device" id="phone-frame"><div class="screen" id="ms" data-scrolled="false" data-open="false"><div class="scrim" id="mscrim"></div><div class="mplate"></div><div class="mh" id="mh">
+<span class="logo"><img data-asset="a19" class="mobile-logo" alt="" width="31" height="34"></span>
+<div class="right"><div class="pair"><a class="book">Termin buchen</a><a class="wa"><img data-asset="a20" class="wa-icon" alt="" ></a></div>
+<button class="burger mbb" id="mb" aria-label="Menü"><img data-asset="a21" class="menu-open-icon" alt="" ><img data-asset="a22" class="menu-close-icon" alt="" ></button></div>
+</div><div class="misl" id="misl"><span class="logo"><img data-asset="a19" class="mobile-logo" alt="" width="31" height="34"></span><div class="right"><a class="book">Termin buchen</a><span class="wsp"></span><button class="burger mbb" aria-label="Menü"><img data-asset="a21" class="menu-open-icon" alt="" ><img data-asset="a22" class="menu-close-icon" alt="" ></button></div></div><nav class="menu" id="mm" data-view="root">
+<div class="pnl root"><button class="nl" data-go="beh"><span class="ic"><img data-asset="a23" class="plus-icon" alt="" ></span>Behandlungen<span class="ar"><img data-asset="a24" class="right-icon" alt="" ></span></button><button class="nl" data-go="ueb"><span class="ic"><img data-asset="a23" class="plus-icon" alt="" ></span>Über uns<span class="ar"><img data-asset="a24" class="right-icon" alt="" ></span></button><a class="nl"><span class="ic"><img data-asset="a23" class="plus-icon" alt="" ></span>Gutscheine</a><a class="nl"><span class="ic"><img data-asset="a23" class="plus-icon" alt="" ></span>Kosmetik</a><a class="nl"><span class="ic"><img data-asset="a23" class="plus-icon" alt="" ></span>Kontakt</a><div class="lang-row">Deutsch <span>/</span> <span>English</span></div></div>
+<div class="pnl beh"><div class="sh"><button type="button" class="back" data-go="root"><img data-asset="a24" class="back-icon" alt="" >Zurück</button>Behandlungen</div><div class="sub-links"><div class="sv-group"><div class="sv open" data-sv="0"><button type="button" class="tr"><span class="ic"><img data-asset="a23" class="" alt="" ></span>Gesicht &amp; Dekolleté<span class="ch"><img data-asset="a24" class="" alt="" ></span></button><div class="ct"><div><a class="sl">Alle Behandlungen</a><a class="sl">Permanent Make-up</a><a class="sl">Kosmetische Behandlungen</a><a class="sl">Microdermabrasion &amp; Peelings</a><a class="sl">Estyle Laser Treatments</a><a class="sl">Apparative Kosmetik</a></div></div></div><div class="sv" data-sv="1"><button type="button" class="tr"><span class="ic"><img data-asset="a23" class="" alt="" ></span>Wimpern &amp; Augenbrauen<span class="ch"><img data-asset="a24" class="" alt="" ></span></button><div class="ct"><div><a class="sl">Alle Behandlungen</a><a class="sl">Wimpernverlängerung</a><a class="sl">Wimpernlaminierung</a><a class="sl">Augenbrauen</a></div></div></div><div class="sv" data-sv="2"><button type="button" class="tr"><span class="ic"><img data-asset="a23" class="" alt="" ></span>Haarentfernung<span class="ch"><img data-asset="a24" class="" alt="" ></span></button><div class="ct"><div><a class="sl">Alle Behandlungen</a><a class="sl">Alexandrit Laser Haarentfernung</a></div></div></div><div class="sv" data-sv="3"><button type="button" class="tr"><span class="ic"><img data-asset="a23" class="" alt="" ></span>Injektionen<span class="ch"><img data-asset="a24" class="" alt="" ></span></button><div class="ct"><div><a class="sl">Mesotherapie</a><a class="sl">Ärztliche Injektionen</a></div></div></div><div class="sv" data-sv="4"><button type="button" class="tr"><span class="ic"><img data-asset="a23" class="" alt="" ></span>Körper<span class="ch"><img data-asset="a24" class="" alt="" ></span></button><div class="ct"><div><a class="sl">Bodyforming</a><a class="sl">EmshapeX</a></div></div></div></div><div class="lang-row">Deutsch <span>/</span> <span>English</span></div></div></div>
+<div class="pnl ueb"><div class="sh"><button type="button" class="back" data-go="root"><img data-asset="a24" class="back-icon" alt="" >Zurück</button>Über uns</div><div class="sub-links"><div class="mobile-about-cards"><a class="mobile-about-card"><div class="about-image about-image-0"><img data-asset="a8" class="" alt="" ></div><div class="about-copy"><b>Über uns</b><span>Natürliche Ergebnisse durch individuelle, schonende Behandlung.</span></div></a><a class="mobile-about-card"><div class="about-image about-image-1"><img data-asset="a9" class="" alt="" ></div><div class="about-copy"><b>Team</b><span>Erfahrenes Team: ehrliche Beratung, präzise Ausführung.</span></div></a></div><div class="lang-row">Deutsch <span>/</span> <span>English</span></div></div></div>
+<a class="promo"><span class="promo-label">Buchen Sie jetzt<br> Ihre Behandlung</span><i><img data-asset="a7" class="arrow-icon" alt="" ></i></a>
+</nav><div class="sc" id="msc"><section class="demo-hero hero-mobile" aria-label="Первый экран">
+ <div class="hero-copy"><img data-asset="a25" class="hero-flower" alt="" >
+ <div class="hero-copy-content"><h1><em>Nachhaltige Schönheit –</em><br><mark>Ihre natürlich strahlende</mark><br>beste Version.</h1><button class="hero-cta" type="button">Jetzt Termin buchen</button></div></div>
+ <div class="hero-photo"><img data-asset="a26" class="orbit orbit-top" alt="" ><img data-asset="a27" class="orbit orbit-bottom" alt="" ><div class="portrait"><img data-asset="a15" class="portrait-photo" alt="" ></div>
+ <div class="clean-badge">Clean Beauty</div><div class="glass glass-pro">Kosmetik-Profis</div><div class="glass glass-team">Erfahrenes Team<img data-asset="a28" class="badge-plus" alt="" ></div><div class="glass glass-flower"><img data-asset="a29" class="" alt="" ></div>
+ </div></section><div class="demo-tail" aria-hidden="true"></div></div></div></div><p class="stage-caption" lang="ru">Вниз — остров. Вверх — полная шапка. Меню открывается и из острова.</p></section></main><script type="application/json" id="embedded-assets">{"a0":"https://beautycenter-header-mobile-preview.niko-malazonia.chatgpt.site/assets/497c7cf595dec52b92a9.svg","a1":"https://beautycenter-header-mobile-preview.niko-malazonia.chatgpt.site/assets/e7c69acf3e1c874d5e9d.svg","a2":"https://beautycenter-header-mobile-preview.niko-malazonia.chatgpt.site/assets/9a4ecff68eda4e0fcf31.svg","a3":"https://beautycenter-header-mobile-preview.niko-malazonia.chatgpt.site/assets/09cebe8540a77bc7b972.svg","a4":"https://beautycenter-header-mobile-preview.niko-malazonia.chatgpt.site/assets/8e84ea74291845124023.svg","a5":"https://beautycenter-header-mobile-preview.niko-malazonia.chatgpt.site/assets/1f37ce74c920fc63b9c2.svg","a6":"https://beautycenter-header-mobile-preview.niko-malazonia.chatgpt.site/assets/69384e01f68786341626.svg","a7":"https://beautycenter-header-mobile-preview.niko-malazonia.chatgpt.site/assets/3ea68e2ce00e871c5340.svg","a8":"https://beautycenter-header-mobile-preview.niko-malazonia.chatgpt.site/assets/3a9f148e6bf670b2908a.png","a9":"https://beautycenter-header-mobile-preview.niko-malazonia.chatgpt.site/assets/c1b6fe230c32219cb1fb.png","a10":"https://beautycenter-header-mobile-preview.niko-malazonia.chatgpt.site/assets/d94bb63376fc83842165.png","a11":"https://beautycenter-header-mobile-preview.niko-malazonia.chatgpt.site/assets/53dfa4c7d183656fea97.svg","a12":"https://beautycenter-header-mobile-preview.niko-malazonia.chatgpt.site/assets/e315e044c59877811df9.svg","a13":"https://beautycenter-header-mobile-preview.niko-malazonia.chatgpt.site/assets/5283a67601b1810e02fe.svg","a14":"https://beautycenter-header-mobile-preview.niko-malazonia.chatgpt.site/assets/0f5a1a590f1698f59067.svg","a15":"https://beautycenter-header-mobile-preview.niko-malazonia.chatgpt.site/assets/b52d3488461bb6180744.png","a16":"https://beautycenter-header-mobile-preview.niko-malazonia.chatgpt.site/assets/c943605f1e7b7ab559a3.svg","a17":"https://beautycenter-header-mobile-preview.niko-malazonia.chatgpt.site/assets/bc4eb657728738976c76.svg","a18":"https://beautycenter-header-mobile-preview.niko-malazonia.chatgpt.site/assets/92f555187dae7386d940.svg","a19":"https://beautycenter-header-mobile-preview.niko-malazonia.chatgpt.site/assets/4093892ae7f1bdd2cc43.svg","a20":"https://beautycenter-header-mobile-preview.niko-malazonia.chatgpt.site/assets/7fb45488a730fac82947.svg","a21":"https://beautycenter-header-mobile-preview.niko-malazonia.chatgpt.site/assets/699cd7aa0efa48b9f4fa.svg","a22":"https://beautycenter-header-mobile-preview.niko-malazonia.chatgpt.site/assets/7f2896d844c22dcafa4e.svg","a23":"https://beautycenter-header-mobile-preview.niko-malazonia.chatgpt.site/assets/9414296b36ca14b0253f.svg","a24":"https://beautycenter-header-mobile-preview.niko-malazonia.chatgpt.site/assets/ea9955aff8f262440b6e.svg","a25":"https://beautycenter-header-mobile-preview.niko-malazonia.chatgpt.site/assets/a494918addbf147d1a25.svg","a26":"https://beautycenter-header-mobile-preview.niko-malazonia.chatgpt.site/assets/befd521f090c90ac7912.svg","a27":"https://beautycenter-header-mobile-preview.niko-malazonia.chatgpt.site/assets/b067a38c26c14e5de97c.svg","a28":"https://beautycenter-header-mobile-preview.niko-malazonia.chatgpt.site/assets/77b2733f6773c8986c63.svg","a29":"https://beautycenter-header-mobile-preview.niko-malazonia.chatgpt.site/assets/5b4968e24151f4239ab1.svg"}</script><script>const embeddedImages=JSON.parse(document.getElementById('embedded-assets').textContent);document.querySelectorAll('img[data-asset]').forEach(img=>{img.src=embeddedImages[img.dataset.asset]});
+const ms=document.getElementById('ms'),msc=document.getElementById('msc'),din=document.getElementById('din'),ds=document.getElementById('ds'),mm=document.getElementById('mm'),dd=document.getElementById('dd-main');
+const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const desktopFrame=document.getElementById('desktop-frame'),phoneFrame=document.getElementById('phone-frame');
+function fit(){desktopFrame.style.setProperty('--desktop-scale',desktopFrame.clientWidth/1440);phoneFrame.style.setProperty('--phone-scale',phoneFrame.clientWidth/406)}
+new ResizeObserver(fit).observe(desktopFrame);new ResizeObserver(fit).observe(phoneFrame);fit();
+let mLast=0,mLock=0,dLock=0,closeTimer,current=null;
+const status=(id,el,y)=>{document.getElementById(id).textContent=(el.dataset.scrolled==='true'?'Остров':'Шапка')+' · '+Math.round(y)+' px'};
+msc.addEventListener('scroll',()=>{const y=msc.scrollTop,dy=y-mLast;mLast=y;ms.dataset.mid=String(y>=40);status('mstate',ms,y);if(Date.now()<mLock||ms.dataset.open==='true')return;const on=ms.dataset.scrolled==='true';if(y<40&&on){mLock=Date.now()+700;ms.dataset.scrolled='false'}else if(dy>8&&!on&&y>=40){mLock=Date.now()+700;ms.dataset.scrolled='true'}else if(dy<-8&&on){mLock=Date.now()+700;ms.dataset.scrolled='false'}status('mstate',ms,y)},{passive:true});
+ds.addEventListener('scroll',()=>{const y=ds.scrollTop;status('dstate',din,y);din.dataset.mid=String(y>=40);if(Date.now()<dLock)return;const on=din.dataset.scrolled==='true';if(!on&&y>40){dLock=Date.now()+700;din.dataset.scrolled='true';closeDD()}else if(on&&y<8){dLock=Date.now()+700;din.dataset.scrolled='false';closeDD()}status('dstate',din,y)},{passive:true});
+const openMobile=state=>{ms.dataset.open=String(state);document.querySelectorAll('.mbb').forEach(b=>{b.setAttribute('aria-expanded',String(state));b.setAttribute('aria-label',state?'Menü schließen':'Menü öffnen')});mm.inert=!state;if(!state)setTimeout(()=>{if(ms.dataset.open!=='true')mm.dataset.view='root'},300)};
+document.querySelectorAll('.mbb').forEach(b=>{b.type='button';b.onclick=()=>openMobile(ms.dataset.open!=='true')});document.getElementById('mscrim').onclick=()=>openMobile(false);
+mm.querySelectorAll('[data-go]').forEach(b=>b.onclick=()=>{mm.dataset.view=b.dataset.go;mm.scrollTop=0});mm.querySelectorAll('[data-sv] .tr').forEach(b=>{b.setAttribute('aria-expanded',String(b.parentElement.classList.contains('open')));b.onclick=()=>{const p=b.parentElement,was=p.classList.contains('open');mm.querySelectorAll('[data-sv]').forEach(x=>{x.classList.remove('open');x.querySelector('.tr').setAttribute('aria-expanded','false')});if(!was){p.classList.add('open');b.setAttribute('aria-expanded','true')}}});
+const pb=document.getElementById('pn-beh'),pu=document.getElementById('pn-ueb'),pmask=document.getElementById('pmask');
+function setPanels(k,animate){if(!animate)pmask.classList.add('nt');pb.dataset.pos=k==='beh'?'c':'l';pu.dataset.pos=k==='ueb'?'c':'r';pb.inert=k!=='beh';pu.inert=k!=='ueb';if(!animate){void pmask.offsetWidth;pmask.classList.remove('nt')}}
+function openDD(k){clearTimeout(closeTimer);const was=dd.classList.contains('show');document.querySelectorAll('[data-dd]').forEach(b=>{b.classList.toggle('on',b.dataset.dd===k);b.setAttribute('aria-expanded',String(b.dataset.dd===k))});if(current!==k||!was)setPanels(k,was&&current!==k);current=k;dd.classList.add('show');dd.inert=false;din.dataset.dd='open'}
+function closeDD(){clearTimeout(closeTimer);current=null;din.dataset.dd='';dd.classList.remove('show');dd.inert=true;document.querySelectorAll('[data-dd]').forEach(b=>{b.classList.remove('on');b.setAttribute('aria-expanded','false')})}
+function schedClose(){clearTimeout(closeTimer);closeTimer=setTimeout(closeDD,250)}
+document.querySelectorAll('.dl').forEach(b=>{if(b.dataset.dd){b.setAttribute('aria-haspopup','true');b.onmouseenter=()=>openDD(b.dataset.dd);b.onfocus=()=>openDD(b.dataset.dd);b.onclick=e=>{e.stopPropagation();openDD(b.dataset.dd)}}else b.onmouseenter=closeDD;b.onmouseleave=schedClose});
+dd.onmouseenter=()=>clearTimeout(closeTimer);dd.onmouseleave=schedClose;dd.onclick=e=>e.stopPropagation();din.querySelector('.dscrim').onclick=closeDD;din.addEventListener('click',e=>{if(!e.target.closest('.dd')&&!e.target.closest('[data-dd]'))closeDD()});
+const categories=[['Permanent Make-up','Kosmetische Behandlungen','Microdermabrasion & Peelings','Estyle Laser Treatments'],['Wimpernverlängerung','Wimpernlaminierung','Augenbrauen'],['Alexandrit Laser Haarentfernung'],['Mesotherapie','Ärztliche Injektionen'],['Bodyforming','EmshapeX']];
+const dotURL=document.querySelector('#sc2 .dot-icon').src;
+document.querySelectorAll('[data-cat]').forEach(t=>{const change=()=>{document.querySelectorAll('[data-cat]').forEach(x=>x.classList.toggle('is-active',x===t));const sc=document.getElementById('sc2');sc.replaceChildren();for(const text of categories[Number(t.dataset.cat)]){const a=document.createElement('a');a.className='sl2';const dot=document.createElement('i'),pic=document.createElement('img');pic.src=dotURL;pic.alt='';pic.className='dot-icon';dot.append(pic);a.append(dot,document.createTextNode(text));sc.append(a)}const all=document.createElement('a');all.className='all';all.textContent='Alle ansehen';sc.append(all)};t.onmouseenter=change;t.onclick=change;t.onfocus=change});
+document.querySelector('[data-cat="0"]').onmouseenter();
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeDD();openMobile(false)}});
+function reset(){openMobile(false);closeDD();mLock=0;dLock=0;msc.scrollTo({top:0,behavior:reduced?'instant':'smooth'});ds.scrollTo({top:0,behavior:reduced?'instant':'smooth'})}
+document.getElementById('demo-reset').onclick=reset;document.getElementById('demo-scroll').onclick=()=>{openMobile(false);closeDD();mLock=0;dLock=0;msc.scrollTo({top:180,behavior:reduced?'instant':'smooth'});ds.scrollTo({top:180,behavior:reduced?'instant':'smooth'})};
+openMobile(false);closeDD();
+</script></body></html>
